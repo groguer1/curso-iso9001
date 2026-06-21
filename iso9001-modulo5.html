@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 5 — Soporte y Operación | Curso ISO 9001</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+:root{--azul:#1B3F6E;--azul-mid:#2A5FA8;--azul-claro:#EAF1FB;--acento:#E8A020;--acento-light:#FDF3E0;--verde:#2D8B5A;--verde-light:#E5F4EC;--rojo:#C0392B;--rojo-light:#FDECEA;--gris-1:#F7F8FA;--gris-2:#E8EBF0;--gris-3:#9AA3B0;--texto:#1A1F2E;--radio:10px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--gris-1);color:var(--texto);font-size:16px;line-height:1.7;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;flex-shrink:0;background:var(--azul);color:#fff;padding:32px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+.badge{background:var(--acento);color:var(--azul);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:8px;}
+.sidebar-logo h2{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.3;}
+.sidebar-progress{padding:0 24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+.progress-label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.progress-bar-bg{background:rgba(255,255,255,0.15);border-radius:4px;height:6px;}
+.progress-bar-fill{background:var(--acento);border-radius:4px;height:6px;width:55%;}
+.progress-pct{font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px;}
+.sidebar nav ul{list-style:none;}
+.sidebar nav ul li a{display:flex;align-items:center;gap:10px;padding:10px 24px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:13.5px;transition:all 0.2s;border-left:3px solid transparent;}
+.sidebar nav ul li a.active{color:#fff;border-left-color:var(--acento);background:rgba(255,255,255,0.08);font-weight:600;}
+.sidebar nav ul li a.done{color:rgba(255,255,255,0.5);}
+.check{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;}
+.done .check{background:var(--verde);border-color:var(--verde);}
+.main{flex:1;padding:48px 56px;max-width:860px;}
+.modulo-eyebrow{font-size:12px;font-weight:600;color:var(--azul-mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.2;color:var(--azul);margin-bottom:16px;}
+.modulo-intro{font-size:17px;color:#4A5568;max-width:640px;margin-bottom:20px;}
+.modulo-meta{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap;}
+.meta-item{font-size:13px;color:var(--gris-3);}
+.seccion{margin-bottom:56px;}
+h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--azul);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gris-2);}
+h3{font-size:17px;font-weight:600;color:var(--texto);margin:24px 0 10px;}
+p{color:#374151;margin-bottom:14px;}
+ul{margin:0 0 14px 20px;color:#374151;}
+ul li{margin-bottom:8px;}
+.callout{padding:20px 24px;border-radius:var(--radio);margin:24px 0;display:flex;gap:16px;}
+.callout.info{background:var(--azul-claro);border-left:4px solid var(--azul-mid);}
+.callout.ejemplo{background:var(--acento-light);border-left:4px solid var(--acento);}
+.callout.clave{background:var(--verde-light);border-left:4px solid var(--verde);}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.callout-body strong{display:block;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;color:var(--azul);}
+.callout.ejemplo .callout-body strong{color:#92600A;}
+.callout.clave .callout-body strong{color:var(--verde);}
+.callout-body p{margin:0;font-size:14.5px;color:#374151;}
+.infografia-wrap{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:32px;margin:24px 0;overflow-x:auto;}
+.infografia-titulo{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gris-3);margin-bottom:24px;}
+.tabla-wrap{overflow-x:auto;margin:20px 0;}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th{background:var(--azul);color:#fff;padding:12px 16px;text-align:left;font-weight:600;}
+td{padding:11px 16px;border-bottom:1px solid var(--gris-2);}
+tr:nth-child(even) td{background:var(--gris-1);}
+tr:last-child td{border-bottom:none;}
+.recursos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin:24px 0;}
+.recurso-card{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:18px;text-align:center;}
+.recurso-icon{font-size:26px;margin-bottom:8px;}
+.recurso-card h4{font-size:13px;font-weight:700;color:var(--azul);margin-bottom:6px;}
+.recurso-card p{font-size:12px;color:#6B7280;margin:0;}
+.descargable{background:linear-gradient(135deg,var(--azul),var(--azul-mid));border-radius:var(--radio);padding:28px 32px;color:#fff;display:flex;align-items:center;gap:24px;margin:32px 0;}
+.descargable-icon{font-size:40px;flex-shrink:0;}
+.descargable-body h4{font-size:17px;font-weight:600;margin-bottom:6px;}
+.descargable-body p{font-size:13.5px;color:rgba(255,255,255,0.75);margin:0 0 16px;}
+.btn-dl{background:var(--acento);color:var(--azul);border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;}
+.quiz-container{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);overflow:hidden;margin:32px 0;}
+.quiz-header{background:var(--azul);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px;}
+.quiz-header h3{font-size:16px;font-weight:600;border:none;margin:0;padding:0;}
+.quiz-badge{background:var(--acento);color:var(--azul);font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;margin-left:auto;}
+.quiz-body{padding:28px;}
+.pregunta{margin-bottom:32px;}
+.pregunta:last-child{margin-bottom:0;}
+.pregunta-num{font-size:11px;font-weight:600;color:var(--gris-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.pregunta h4{font-size:15px;font-weight:600;margin-bottom:16px;color:var(--texto);}
+.opciones{display:flex;flex-direction:column;gap:10px;}
+.opcion{display:flex;align-items:center;gap:12px;padding:13px 16px;border:2px solid var(--gris-2);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:14px;color:var(--texto);}
+.opcion:hover{border-color:var(--azul-mid);background:var(--azul-claro);}
+.opcion-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--gris-2);flex-shrink:0;}
+.opcion.selected{border-color:var(--azul-mid);background:var(--azul-claro);}
+.opcion.selected .opcion-dot{background:var(--azul-mid);border-color:var(--azul-mid);}
+.opcion.correcta{border-color:var(--verde);background:var(--verde-light);}
+.opcion.correcta .opcion-dot{background:var(--verde);border-color:var(--verde);}
+.opcion.incorrecta{border-color:var(--rojo);background:var(--rojo-light);}
+.opcion.incorrecta .opcion-dot{background:var(--rojo);border-color:var(--rojo);}
+.feedback-pregunta{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:13.5px;display:none;}
+.feedback-pregunta.ok{background:var(--verde-light);color:#1A5C38;display:block;}
+.feedback-pregunta.ko{background:var(--rojo-light);color:#8B1A10;display:block;}
+.quiz-footer{padding:20px 28px;border-top:1px solid var(--gris-2);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.btn-quiz{background:var(--azul);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
+.btn-quiz:hover{background:var(--azul-mid);}
+.btn-quiz:disabled{background:var(--gris-3);cursor:not-allowed;}
+.quiz-resultado{font-size:14px;color:var(--gris-3);display:none;}
+.quiz-resultado.visible{display:block;}
+.modulo-nav{display:flex;justify-content:space-between;align-items:center;margin-top:56px;padding-top:32px;border-top:2px solid var(--gris-2);}
+.btn-nav{display:flex;align-items:center;gap:10px;padding:13px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.btn-nav.siguiente{background:var(--azul);color:#fff;}
+.btn-nav.anterior{background:#fff;color:var(--azul);border:2px solid var(--gris-2);}
+@media(max-width:768px){.sidebar{display:none;}.main{padding:24px 20px;}h1{font-size:28px;}.recursos-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="badge">ISO 9001:2026</div><h2>Gestor de Calidad<br>Certificado</h2></div>
+  <div class="sidebar-progress"><div class="progress-label">Tu progreso</div><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="progress-pct">Módulo 5 de 9</div></div>
+  <nav><ul>
+    <li><a href="iso9001-modulo1.html" class="done"><span class="check">✓</span> Fundamentos</a></li>
+    <li><a href="iso9001-modulo2.html" class="done"><span class="check">✓</span> La norma ISO 9001:2026</a></li>
+    <li><a href="iso9001-modulo3.html" class="done"><span class="check">✓</span> Contexto</a></li>
+    <li><a href="iso9001-modulo4.html" class="done"><span class="check">✓</span> Liderazgo y Planificación</a></li>
+    <li><a href="#" class="active"><span class="check">5</span> Soporte y Operación</a></li>
+    <li><a href="#"><span class="check">6</span> Evaluación del Desempeño</a></li>
+    <li><a href="#"><span class="check">7</span> Mejora Continua</a></li>
+    <li><a href="#"><span class="check">8</span> Proceso de certificación</a></li>
+    <li><a href="#"><span class="check">9</span> Proyecto Final</a></li>
+  </ul></nav>
+</aside>
+<main class="main">
+  <div class="modulo-eyebrow">Módulo 5 de 9 — Cláusulas 7 y 8</div>
+  <h1>Soporte y Operación</h1>
+  <p class="modulo-intro">Las cláusulas 7 y 8 son donde el SGC se hace real. La 7 define qué recursos y condiciones necesitas; la 8 describe cómo ejecutas el trabajo que genera valor para el cliente.</p>
+  <div class="modulo-meta"><span class="meta-item">⏱ 3 horas</span><span class="meta-item">✅ 10 preguntas</span><span class="meta-item">📋 Checklist de recursos + plantilla comunicación</span></div>
+
+  <section class="seccion">
+    <h2>1. Cláusula 7: Soporte — los habilitadores del sistema</h2>
+    <p>La Cláusula 7 responde a la pregunta: <strong>¿qué necesita la organización para operar su SGC eficazmente?</strong> Se divide en seis subcláusulas que abordan los recursos en sentido amplio.</p>
+    <div class="recursos-grid">
+      <div class="recurso-card"><div class="recurso-icon">👥</div><h4>7.1.2 Personas</h4><p>Personal suficiente y competente para operar y controlar los procesos.</p></div>
+      <div class="recurso-card"><div class="recurso-icon">🏗️</div><h4>7.1.3 Infraestructura</h4><p>Edificios, equipos, hardware, software y transportes necesarios.</p></div>
+      <div class="recurso-card"><div class="recurso-icon">🌡️</div><h4>7.1.4 Ambiente</h4><p>Condiciones físicas, sociales y psicológicas del entorno de trabajo.</p></div>
+      <div class="recurso-card"><div class="recurso-icon">📏</div><h4>7.1.5 Medición</h4><p>Equipos de medición calibrados y trazables cuando el resultado afecta a la conformidad.</p></div>
+      <div class="recurso-card"><div class="recurso-icon">🧠</div><h4>7.1.6 Conocimiento</h4><p>Conocimiento organizacional que debe mantenerse, protegerse y actualizarse (novedad 2026).</p></div>
+      <div class="recurso-card"><div class="recurso-icon">🎓</div><h4>7.2 Competencia</h4><p>El personal debe tener formación, habilidades y experiencia para su tarea. Debe estar documentado.</p></div>
+    </div>
+
+    <h3>Gestión del conocimiento organizacional (C.7.1.6) — Novedad 2026</h3>
+    <p>La ISO 9001:2026 refuerza esta subcláusula de forma significativa. Ya no basta con "mantener el conocimiento": la organización debe <strong>gestionar activamente el riesgo de perderlo</strong>, especialmente por rotación de personal, jubilaciones o cambios tecnológicos.</p>
+    <div class="callout info">
+      <div class="callout-icon">🧠</div>
+      <div class="callout-body"><strong>Tipos de conocimiento a gestionar</strong><p><strong>Conocimiento explícito:</strong> documentado (procedimientos, manuales, especificaciones). Fácil de transferir.<br><br><strong>Conocimiento tácito:</strong> en la cabeza de las personas (experiencia, juicio, saber hacer). Difícil de transferir y el mayor riesgo de pérdida. La versión 2026 pone el foco aquí.</p></div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <h2>2. Competencia, toma de conciencia y comunicación</h2>
+    <h3>Competencia (C.7.2)</h3>
+    <p>Para cada rol que afecte a la calidad, la organización debe determinar la competencia necesaria, asegurarse de que el personal la tiene (o la adquiere), y conservar la evidencia documentada. En la práctica: fichas de puesto + registros de formación.</p>
+
+    <div class="callout ejemplo">
+      <div class="callout-icon">📦</div>
+      <div class="callout-body"><strong>Ejemplo: Matriz de competencias</strong><p>Una empresa define que el operario de soldadura necesita: certificado de soldador homologado, 6 meses de experiencia en el puesto y formación en el procedimiento interno PS-03. En el expediente del empleado debe haber evidencia de los tres requisitos.</p></div>
+    </div>
+
+    <h3>Toma de conciencia (C.7.3)</h3>
+    <p>Todo el personal debe ser consciente de: la política de calidad, los objetivos de calidad relevantes para su trabajo, su contribución a la eficacia del SGC, y las consecuencias de no cumplir los requisitos. No basta con publicar la política en un tablón: hay que asegurarse de que se entiende y aplica.</p>
+
+    <h3>Comunicación (C.7.4)</h3>
+    <p>La organización debe determinar qué comunicar, cuándo, a quién, cómo y quién lo hace, tanto internamente como con partes externas (clientes, proveedores, reguladores).</p>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Tipo</th><th>Qué comunicar</th><th>A quién</th><th>Cómo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Interna</strong></td><td>Política, objetivos, resultados de auditorías, no conformidades</td><td>Todo el personal</td><td>Reuniones, tablón, email, intranet</td></tr>
+        <tr><td><strong>Externa</strong></td><td>Alcance del SGC, requisitos del cliente, reclamaciones</td><td>Clientes, proveedores, reguladores</td><td>Contratos, informes, web, email</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="seccion">
+    <h2>3. Información documentada (C.7.5)</h2>
+    <p>La ISO 9001:2026 usa el término "información documentada" en lugar del clásico "documentos y registros". La diferencia es importante: <strong>la norma no exige un manual de calidad ni un número mínimo de procedimientos</strong>. Exige que la organización mantenga la información que sea necesaria para la eficacia del SGC.</p>
+
+    <div class="infografia-wrap">
+      <div class="infografia-titulo">📄 Información documentada — Tipos y ejemplos</div>
+      <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;display:block;">
+        <rect x="20" y="20" width="280" height="200" rx="10" fill="#EAF1FB" stroke="#1B3F6E" stroke-width="1.5"/>
+        <text x="160" y="48" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#1B3F6E">INFORMACIÓN A MANTENER</text>
+        <text x="160" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">(describe cómo se hacen las cosas)</text>
+        <text x="40" y="92" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">• Política de calidad</text>
+        <text x="40" y="112" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">• Alcance del SGC</text>
+        <text x="40" y="132" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">• Objetivos de calidad</text>
+        <text x="40" y="152" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">• Procedimientos (los necesarios)</text>
+        <text x="40" y="172" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">• Instrucciones de trabajo</text>
+        <text x="40" y="192" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">• Especificaciones técnicas</text>
+
+        <rect x="340" y="20" width="280" height="200" rx="10" fill="#E5F4EC" stroke="#2D8B5A" stroke-width="1.5"/>
+        <text x="480" y="48" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#2D8B5A">INFORMACIÓN A CONSERVAR</text>
+        <text x="480" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">(evidencia de lo que se hizo)</text>
+        <text x="360" y="92" font-family="Inter,sans-serif" font-size="12" fill="#2D8B5A">• Registros de formación</text>
+        <text x="360" y="112" font-family="Inter,sans-serif" font-size="12" fill="#2D8B5A">• Resultados de calibración</text>
+        <text x="360" y="132" font-family="Inter,sans-serif" font-size="12" fill="#2D8B5A">• Registros de auditoría interna</text>
+        <text x="360" y="152" font-family="Inter,sans-serif" font-size="12" fill="#2D8B5A">• No conformidades y AC</text>
+        <text x="360" y="172" font-family="Inter,sans-serif" font-size="12" fill="#2D8B5A">• Resultados de revisión dirección</text>
+        <text x="360" y="192" font-family="Inter,sans-serif" font-size="12" fill="#2D8B5A">• Reclamaciones de clientes</text>
+      </svg>
+    </div>
+    <div class="callout clave">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body"><strong>Novedad 2026: entornos digitales</strong><p>La versión 2026 actualiza la C.7.5 para incluir explícitamente entornos cloud, sistemas automatizados y la seguridad de la información documentada. Si tus documentos viven en Google Drive, SharePoint o un ERP, necesitas controles de acceso, versiones y copias de seguridad.</p></div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <h2>4. Cláusula 8: Operación — donde se crea el valor</h2>
+    <p>La Cláusula 8 es la más extensa de la norma. Cubre todo lo que ocurre desde que el cliente hace un pedido hasta que recibe el producto o servicio. Se estructura así:</p>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Subcláusula</th><th>Qué cubre</th></tr></thead>
+      <tbody>
+        <tr><td><strong>8.1</strong></td><td>Planificación y control operacional — cómo planificas la entrega</td></tr>
+        <tr><td><strong>8.2</strong></td><td>Requisitos para los productos y servicios — qué pide el cliente</td></tr>
+        <tr><td><strong>8.3</strong></td><td>Diseño y desarrollo — cómo creas nuevos productos/servicios</td></tr>
+        <tr><td><strong>8.4</strong></td><td>Control de procesos, productos y servicios suministrados externamente — gestión de proveedores</td></tr>
+        <tr><td><strong>8.5</strong></td><td>Producción y provisión del servicio — la ejecución real</td></tr>
+        <tr><td><strong>8.6</strong></td><td>Liberación de productos y servicios — control de calidad antes de entregar</td></tr>
+        <tr><td><strong>8.7</strong></td><td>Control de las salidas no conformes — qué hacer con lo defectuoso</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Control de proveedores (C.8.4) — Ampliado en 2026</h3>
+    <p>La versión 2026 amplía significativamente esta subcláusula. Ya no basta con evaluar al proveedor directo: se exige considerar <strong>toda la cadena de suministro</strong> cuando los riesgos así lo justifiquen. El tipo de control debe ser proporcional al impacto que tiene el proveedor en la calidad del producto final.</p>
+
+    <div class="callout ejemplo">
+      <div class="callout-icon">📦</div>
+      <div class="callout-body"><strong>Niveles de control de proveedores</strong><p><strong>Control mínimo:</strong> Proveedor de material de oficina. Solo verificación de albarán.<br><br><strong>Control medio:</strong> Proveedor de componentes estándar. Evaluación anual + especificaciones técnicas en contrato.<br><br><strong>Control máximo:</strong> Proveedor crítico de materia prima. Auditorías al proveedor + inspección de entrada + plan de contingencia con alternativo.</p></div>
+    </div>
+
+    <h3>Control de salidas no conformes (C.8.7)</h3>
+    <p>Cuando un producto o servicio no cumple los requisitos, la organización tiene cuatro opciones documentadas:</p>
+    <ul>
+      <li><strong>Corrección:</strong> reparar o rehacer el producto</li>
+      <li><strong>Segregación/contención:</strong> apartar el producto para evitar su uso</li>
+      <li><strong>Devolución o interrupción:</strong> devolver al proveedor o detener la prestación</li>
+      <li><strong>Concesión del cliente:</strong> el cliente acepta el producto tal como está, documentado</li>
+    </ul>
+  </section>
+
+  <div class="descargable">
+    <div class="descargable-icon">📋</div>
+    <div class="descargable-body">
+      <h4>Checklist: Recursos del SGC + Evaluación de proveedores</h4>
+      <p>Lista de verificación para comprobar que tienes cubiertos todos los recursos de la Cláusula 7, más la ficha de evaluación de proveedores de la Cláusula 8.4.</p>
+      <button class="btn-dl" onclick="descargar()">⬇ Descargar checklist</button>
+    </div>
+  </div>
+
+  <div class="quiz-container">
+    <div class="quiz-header"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>Quiz del Módulo 5</h3><span class="quiz-badge">10 preguntas</span></div>
+    <div class="quiz-body">
+      <div class="pregunta" id="p1"><div class="pregunta-num">Pregunta 1 de 10</div><h4>¿Cuántas subcláusulas de recursos tiene la Cláusula 7.1?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>3</label>
+        <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>4</label>
+        <label class="opcion" onclick="sel(this,'p1',true)"><div class="opcion-dot"></div>5 (personas, infraestructura, ambiente, medición y conocimiento)</label>
+        <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>6</label>
+      </div><div class="feedback-pregunta" id="fb1"></div></div>
+
+      <div class="pregunta" id="p2"><div class="pregunta-num">Pregunta 2 de 10</div><h4>¿Qué diferencia hay entre "información a mantener" e "información a conservar"?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>Son sinónimos en la ISO 9001</label>
+        <label class="opcion" onclick="sel(this,'p2',true)"><div class="opcion-dot"></div>"Mantener" describe cómo se hacen las cosas (procedimientos); "conservar" es la evidencia de que se hicieron (registros)</label>
+        <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>"Mantener" son los registros históricos; "conservar" son los documentos actuales</label>
+        <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>La diferencia es solo el tiempo de retención</label>
+      </div><div class="feedback-pregunta" id="fb2"></div></div>
+
+      <div class="pregunta" id="p3"><div class="pregunta-num">Pregunta 3 de 10</div><h4>¿Exige la ISO 9001 que la organización tenga un manual de calidad?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>Sí, es un requisito obligatorio de la Cláusula 7.5</label>
+        <label class="opcion" onclick="sel(this,'p3',true)"><div class="opcion-dot"></div>No, desde la versión 2015 el manual de calidad dejó de ser obligatorio</label>
+        <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>Solo si la empresa tiene más de 50 empleados</label>
+        <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>Solo para las empresas que se quieran certificar</label>
+      </div><div class="feedback-pregunta" id="fb3"></div></div>
+
+      <div class="pregunta" id="p4"><div class="pregunta-num">Pregunta 4 de 10</div><h4>¿Qué exige la Cláusula 7.2 sobre la competencia del personal?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>Que todo el personal tenga titulación universitaria</label>
+        <label class="opcion" onclick="sel(this,'p4',true)"><div class="opcion-dot"></div>Que la organización determine la competencia necesaria, se asegure de que el personal la tiene y conserve evidencias documentadas</label>
+        <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>Que se realicen exámenes internos anuales a todo el personal</label>
+        <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>Solo aplica al responsable de calidad</label>
+      </div><div class="feedback-pregunta" id="fb4"></div></div>
+
+      <div class="pregunta" id="p5"><div class="pregunta-num">Pregunta 5 de 10</div><h4>¿Cuál de estas opciones NO es una forma válida de tratar una salida no conforme (C.8.7)?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Corrección (reparar o rehacer)</label>
+        <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Segregación para evitar su uso</label>
+        <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Concesión del cliente (acepta el producto tal como está)</label>
+        <label class="opcion" onclick="sel(this,'p5',true)"><div class="opcion-dot"></div>Ignorar el defecto si el cliente no lo ha reclamado aún</label>
+      </div><div class="feedback-pregunta" id="fb5"></div></div>
+
+      <div class="pregunta" id="p6"><div class="pregunta-num">Pregunta 6 de 10</div><h4>¿Qué novedad introduce la ISO 9001:2026 en la subcláusula 7.1.6 (conocimiento)?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Exige contratar un Chief Knowledge Officer</label>
+        <label class="opcion" onclick="sel(this,'p6',true)"><div class="opcion-dot"></div>Gestionar activamente el riesgo de pérdida de conocimiento crítico por rotación o cambios tecnológicos</label>
+        <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Documentar en un repositorio centralizado todo el conocimiento de la empresa</label>
+        <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Certificar individualmente al personal en sus áreas de conocimiento</label>
+      </div><div class="feedback-pregunta" id="fb6"></div></div>
+
+      <div class="pregunta" id="p7"><div class="pregunta-num">Pregunta 7 de 10</div><h4>¿Qué amplía la ISO 9001:2026 en la Cláusula 8.4 sobre proveedores?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Elimina el requisito de evaluar proveedores para simplificar</label>
+        <label class="opcion" onclick="sel(this,'p7',true)"><div class="opcion-dot"></div>Exige considerar toda la cadena de suministro, no solo el proveedor directo</label>
+        <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Obliga a auditar presencialmente a todos los proveedores anualmente</label>
+        <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Limita el número de proveedores que puede tener una empresa certificada</label>
+      </div><div class="feedback-pregunta" id="fb7"></div></div>
+
+      <div class="pregunta" id="p8"><div class="pregunta-num">Pregunta 8 de 10</div><h4>¿Qué debe saber el personal sobre el SGC según la Cláusula 7.3 (toma de conciencia)?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p8',true)"><div class="opcion-dot"></div>La política de calidad, los objetivos relevantes para su trabajo, su contribución al SGC y las consecuencias de no cumplir requisitos</label>
+        <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Solo la política de calidad y su firma de haberla leído</label>
+        <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>El contenido completo de la norma ISO 9001</label>
+        <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Solo los procedimientos de su propio departamento</label>
+      </div><div class="feedback-pregunta" id="fb8"></div></div>
+
+      <div class="pregunta" id="p9"><div class="pregunta-num">Pregunta 9 de 10</div><h4>¿Cuándo exige la Cláusula 7.1.5 que los equipos de medición estén calibrados?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>Siempre, sin excepciones</label>
+        <label class="opcion" onclick="sel(this,'p9',true)"><div class="opcion-dot"></div>Cuando la exactitud de la medición afecta a la conformidad del producto o servicio</label>
+        <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>Solo para los equipos de producción, no de control</label>
+        <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>Solo si el cliente lo exige explícitamente en el contrato</label>
+      </div><div class="feedback-pregunta" id="fb9"></div></div>
+
+      <div class="pregunta" id="p10"><div class="pregunta-num">Pregunta 10 de 10</div><h4>¿Qué actualiza la versión 2026 en la Cláusula 7.5 sobre información documentada?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Exige que toda la documentación esté en papel con firma manuscrita</label>
+        <label class="opcion" onclick="sel(this,'p10',true)"><div class="opcion-dot"></div>Incluye explícitamente entornos cloud, sistemas automatizados y controles de seguridad de la información digital</label>
+        <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Reduce el período mínimo de conservación de registros a 1 año</label>
+        <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Elimina la necesidad de controlar las versiones de los documentos</label>
+      </div><div class="feedback-pregunta" id="fb10"></div></div>
+    </div>
+    <div class="quiz-footer">
+      <button class="btn-quiz" id="btnComprobar" onclick="comprobarQuiz()">Comprobar respuestas</button>
+      <button class="btn-quiz" id="btnReset" onclick="resetQuiz()" style="background:#fff;color:var(--azul);border:2px solid var(--gris-2);display:none;">Reintentar</button>
+      <span class="quiz-resultado" id="quizResultado"></span>
+    </div>
+  </div>
+
+  <div class="modulo-nav">
+    <a href="iso9001-modulo4.html" class="btn-nav anterior">← Módulo 4</a>
+    <a href="iso9001-modulo6.html" class="btn-nav siguiente">Módulo 6: Evaluación →</a>
+  </div>
+</main>
+</div>
+<script>
+const R={};
+const CI={p1:2,p2:1,p3:1,p4:1,p5:3,p6:1,p7:1,p8:0,p9:1,p10:1};
+const FB={
+  p1:{ok:'✅ Correcto. La C.7.1 tiene 5 subcláusulas de recursos: personas, infraestructura, ambiente de trabajo, medición y conocimiento.',ko:'❌ Incorrecto. Son 5 subcláusulas: 7.1.1 (generalidades), 7.1.2 (personas), 7.1.3 (infraestructura), 7.1.4 (ambiente), 7.1.5 (medición), 7.1.6 (conocimiento).'},
+  p2:{ok:'✅ Correcto. "Mantener" = procedimientos y documentos que describen cómo se hacen las cosas. "Conservar" = registros que evidencian que se hicieron.',ko:'❌ Incorrecto. "Mantener" se refiere a documentos activos (procedimientos); "conservar" se refiere a registros (evidencias históricas).'},
+  p3:{ok:'✅ Correcto. Desde la versión 2015 el manual de calidad dejó de ser obligatorio. La norma exige la información necesaria, no un formato específico.',ko:'❌ Incorrecto. El manual de calidad dejó de ser un requisito obligatorio desde la ISO 9001:2015.'},
+  p4:{ok:'✅ Correcto. La C.7.2 exige determinar la competencia requerida, asegurarla y guardar evidencias (registros de formación, titulaciones, etc.).',ko:'❌ Incorrecto. La C.7.2 exige determinar qué competencia necesita cada rol, asegurarse de que el personal la tiene y conservar las evidencias.'},
+  p5:{ok:'✅ Correcto. Ignorar un defecto nunca es una opción válida. Las cuatro opciones son: corrección, segregación, devolución/parada, o concesión del cliente.',ko:'❌ Incorrecto. Ignorar un defecto no está entre las opciones válidas. Siempre hay que tomar una acción documentada ante una salida no conforme.'},
+  p6:{ok:'✅ Correcto. La versión 2026 refuerza la gestión del conocimiento tácito y el riesgo de perderlo por rotación de personal o cambios tecnológicos.',ko:'❌ Incorrecto. La novedad es la gestión activa del riesgo de pérdida del conocimiento crítico organizacional.'},
+  p7:{ok:'✅ Correcto. La versión 2026 amplía la visión a toda la cadena de suministro cuando los riesgos lo justifican, no solo al proveedor inmediato.',ko:'❌ Incorrecto. La novedad de 2026 en C.8.4 es extender el control a toda la cadena de valor, no solo al proveedor directo.'},
+  p8:{ok:'✅ Correcto. El personal debe conocer la política, los objetivos relevantes para su trabajo, su contribución al SGC y las consecuencias de no cumplir.',ko:'❌ Incorrecto. La toma de conciencia incluye cuatro elementos: política, objetivos relevantes, contribución personal y consecuencias del incumplimiento.'},
+  p9:{ok:'✅ Correcto. La calibración solo es obligatoria cuando la medición afecta a la conformidad del producto. No aplica a todos los equipos sin excepción.',ko:'❌ Incorrecto. La C.7.1.5 solo exige calibración cuando la exactitud de la medición puede afectar a la conformidad del resultado.'},
+  p10:{ok:'✅ Correcto. La versión 2026 actualiza la C.7.5 para incluir explícitamente entornos cloud, sistemas automatizados y controles de seguridad digital.',ko:'❌ Incorrecto. La novedad de la versión 2026 en C.7.5 es la adaptación a entornos digitales: cloud, automatización y seguridad de la información.'}
+};
+function sel(el,pid,ok){if(document.getElementById('btnComprobar').disabled)return;el.closest('.opciones').querySelectorAll('.opcion').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');R[pid]={idx:Array.from(el.closest('.opciones').children).indexOf(el),ok};}
+function comprobarQuiz(){const ps=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10'];if(Object.keys(R).length<ps.length){alert('Responde todas las preguntas.');return;}let a=0;ps.forEach(pid=>{const r=R[pid];const ops=document.querySelectorAll('#'+pid+' .opcion');const fb=document.getElementById('fb'+pid.substring(1));ops.forEach(o=>o.style.pointerEvents='none');if(r.ok){ops[r.idx].classList.add('correcta');fb.className='feedback-pregunta ok';fb.textContent=FB[pid].ok;a++;}else{ops[r.idx].classList.add('incorrecta');ops[CI[pid]].classList.add('correcta');fb.className='feedback-pregunta ko';fb.textContent=FB[pid].ko;}});document.getElementById('btnComprobar').disabled=true;document.getElementById('btnComprobar').style.display='none';document.getElementById('btnReset').style.display='inline-block';const res=document.getElementById('quizResultado');res.classList.add('visible');const pct=Math.round(a/10*100);res.style.color=pct>=80?'var(--verde)':pct>=60?'var(--acento)':'var(--rojo)';res.textContent=pct>=80?`🎉 ${a}/10 (${pct}%) — Excelente.`:pct>=60?`📖 ${a}/10 (${pct}%) — Repasa los errores.`:`🔄 ${a}/10 (${pct}%) — Vuelve a leer el módulo.`;}
+function resetQuiz(){Object.keys(R).forEach(k=>delete R[k]);document.querySelectorAll('.opcion').forEach(o=>{o.classList.remove('selected','correcta','incorrecta');o.style.pointerEvents='';});document.querySelectorAll('.feedback-pregunta').forEach(f=>{f.className='feedback-pregunta';f.textContent='';});document.getElementById('btnComprobar').disabled=false;document.getElementById('btnComprobar').style.display='';document.getElementById('btnReset').style.display='none';document.getElementById('quizResultado').classList.remove('visible');}
+function descargar(){const t=`CHECKLIST MÓDULO 5 — SOPORTE Y OPERACIÓN\n\nCHECKLIST RECURSOS (Cláusula 7)\n[ ] Personas: Personal suficiente y competente para cada proceso\n[ ] Infraestructura: Equipos, instalaciones y software identificados y mantenidos\n[ ] Ambiente: Condiciones de trabajo adecuadas documentadas\n[ ] Medición: Equipos calibrados con certificados vigentes cuando aplica\n[ ] Conocimiento: Conocimiento crítico documentado, riesgo de pérdida identificado\n[ ] Competencia: Fichas de puesto + registros de formación por empleado\n[ ] Toma de conciencia: Personal conoce política, objetivos y su contribución\n[ ] Comunicación: Plan de comunicación interna y externa definido\n[ ] Info. documentada: Control de versiones, accesos y copias de seguridad\n\nFICHA DE EVALUACIÓN DE PROVEEDORES (Cláusula 8.4)\nProveedor: ________________\nProducto/servicio: ________________\nImpacto en calidad: Alto / Medio / Bajo\nCriterios de evaluación:\n[ ] Certificación ISO o equivalente\n[ ] Historial de entregas a tiempo (%): ____\n[ ] Tasa de productos no conformes recibidos (%): ____\n[ ] Capacidad de respuesta ante incidencias\n[ ] Precio y condiciones comerciales\nPuntuación total: ____ / 100\nDecisión: [ ] Aprobado [ ] Aprobado condicional [ ] Rechazado\nFecha próxima reevaluación: ________________\n\n© Curso Gestor de Calidad ISO 9001`;const b=new Blob([t],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='checklist-modulo5-soporte.txt';a.click();URL.revokeObjectURL(u);}
+</script>
+</body>
+</html>

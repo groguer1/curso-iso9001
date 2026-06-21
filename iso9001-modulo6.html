@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 6 — Evaluación del Desempeño | Curso ISO 9001</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+:root{--azul:#1B3F6E;--azul-mid:#2A5FA8;--azul-claro:#EAF1FB;--acento:#E8A020;--acento-light:#FDF3E0;--verde:#2D8B5A;--verde-light:#E5F4EC;--rojo:#C0392B;--rojo-light:#FDECEA;--gris-1:#F7F8FA;--gris-2:#E8EBF0;--gris-3:#9AA3B0;--texto:#1A1F2E;--radio:10px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--gris-1);color:var(--texto);font-size:16px;line-height:1.7;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;flex-shrink:0;background:var(--azul);color:#fff;padding:32px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+.badge{background:var(--acento);color:var(--azul);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:8px;}
+.sidebar-logo h2{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.3;}
+.sidebar-progress{padding:0 24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+.progress-label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.progress-bar-bg{background:rgba(255,255,255,0.15);border-radius:4px;height:6px;}
+.progress-bar-fill{background:var(--acento);border-radius:4px;height:6px;width:66%;}
+.progress-pct{font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px;}
+.sidebar nav ul{list-style:none;}
+.sidebar nav ul li a{display:flex;align-items:center;gap:10px;padding:10px 24px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:13.5px;transition:all 0.2s;border-left:3px solid transparent;}
+.sidebar nav ul li a.active{color:#fff;border-left-color:var(--acento);background:rgba(255,255,255,0.08);font-weight:600;}
+.sidebar nav ul li a.done{color:rgba(255,255,255,0.5);}
+.check{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;}
+.done .check{background:var(--verde);border-color:var(--verde);}
+.main{flex:1;padding:48px 56px;max-width:860px;}
+.modulo-eyebrow{font-size:12px;font-weight:600;color:var(--azul-mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.2;color:var(--azul);margin-bottom:16px;}
+.modulo-intro{font-size:17px;color:#4A5568;max-width:640px;margin-bottom:20px;}
+.modulo-meta{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap;}
+.meta-item{font-size:13px;color:var(--gris-3);}
+.seccion{margin-bottom:56px;}
+h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--azul);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gris-2);}
+h3{font-size:17px;font-weight:600;color:var(--texto);margin:24px 0 10px;}
+p{color:#374151;margin-bottom:14px;}
+ul{margin:0 0 14px 20px;color:#374151;}
+ul li{margin-bottom:8px;}
+.callout{padding:20px 24px;border-radius:var(--radio);margin:24px 0;display:flex;gap:16px;}
+.callout.info{background:var(--azul-claro);border-left:4px solid var(--azul-mid);}
+.callout.ejemplo{background:var(--acento-light);border-left:4px solid var(--acento);}
+.callout.clave{background:var(--verde-light);border-left:4px solid var(--verde);}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.callout-body strong{display:block;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;color:var(--azul);}
+.callout.ejemplo .callout-body strong{color:#92600A;}
+.callout.clave .callout-body strong{color:var(--verde);}
+.callout-body p{margin:0;font-size:14.5px;color:#374151;}
+.infografia-wrap{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:32px;margin:24px 0;overflow-x:auto;}
+.infografia-titulo{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gris-3);margin-bottom:24px;}
+.tabla-wrap{overflow-x:auto;margin:20px 0;}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th{background:var(--azul);color:#fff;padding:12px 16px;text-align:left;font-weight:600;}
+td{padding:11px 16px;border-bottom:1px solid var(--gris-2);}
+tr:nth-child(even) td{background:var(--gris-1);}
+tr:last-child td{border-bottom:none;}
+.auditoria-fases{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin:24px 0;}
+.fase-card{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:18px;border-top:4px solid var(--azul);}
+.fase-num{font-size:11px;font-weight:700;color:var(--gris-3);text-transform:uppercase;margin-bottom:6px;}
+.fase-card h4{font-size:13px;font-weight:700;color:var(--azul);margin-bottom:8px;}
+.fase-card p{font-size:12px;color:#6B7280;margin:0;}
+.descargable{background:linear-gradient(135deg,var(--azul),var(--azul-mid));border-radius:var(--radio);padding:28px 32px;color:#fff;display:flex;align-items:center;gap:24px;margin:32px 0;}
+.descargable-icon{font-size:40px;flex-shrink:0;}
+.descargable-body h4{font-size:17px;font-weight:600;margin-bottom:6px;}
+.descargable-body p{font-size:13.5px;color:rgba(255,255,255,0.75);margin:0 0 16px;}
+.btn-dl{background:var(--acento);color:var(--azul);border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;}
+.quiz-container{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);overflow:hidden;margin:32px 0;}
+.quiz-header{background:var(--azul);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px;}
+.quiz-header h3{font-size:16px;font-weight:600;border:none;margin:0;padding:0;}
+.quiz-badge{background:var(--acento);color:var(--azul);font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;margin-left:auto;}
+.quiz-body{padding:28px;}
+.pregunta{margin-bottom:32px;}
+.pregunta:last-child{margin-bottom:0;}
+.pregunta-num{font-size:11px;font-weight:600;color:var(--gris-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.pregunta h4{font-size:15px;font-weight:600;margin-bottom:16px;color:var(--texto);}
+.opciones{display:flex;flex-direction:column;gap:10px;}
+.opcion{display:flex;align-items:center;gap:12px;padding:13px 16px;border:2px solid var(--gris-2);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:14px;color:var(--texto);}
+.opcion:hover{border-color:var(--azul-mid);background:var(--azul-claro);}
+.opcion-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--gris-2);flex-shrink:0;}
+.opcion.selected{border-color:var(--azul-mid);background:var(--azul-claro);}
+.opcion.selected .opcion-dot{background:var(--azul-mid);border-color:var(--azul-mid);}
+.opcion.correcta{border-color:var(--verde);background:var(--verde-light);}
+.opcion.correcta .opcion-dot{background:var(--verde);border-color:var(--verde);}
+.opcion.incorrecta{border-color:var(--rojo);background:var(--rojo-light);}
+.opcion.incorrecta .opcion-dot{background:var(--rojo);border-color:var(--rojo);}
+.feedback-pregunta{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:13.5px;display:none;}
+.feedback-pregunta.ok{background:var(--verde-light);color:#1A5C38;display:block;}
+.feedback-pregunta.ko{background:var(--rojo-light);color:#8B1A10;display:block;}
+.quiz-footer{padding:20px 28px;border-top:1px solid var(--gris-2);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.btn-quiz{background:var(--azul);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
+.btn-quiz:hover{background:var(--azul-mid);}
+.btn-quiz:disabled{background:var(--gris-3);cursor:not-allowed;}
+.quiz-resultado{font-size:14px;color:var(--gris-3);display:none;}
+.quiz-resultado.visible{display:block;}
+.modulo-nav{display:flex;justify-content:space-between;align-items:center;margin-top:56px;padding-top:32px;border-top:2px solid var(--gris-2);}
+.btn-nav{display:flex;align-items:center;gap:10px;padding:13px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.btn-nav.siguiente{background:var(--azul);color:#fff;}
+.btn-nav.anterior{background:#fff;color:var(--azul);border:2px solid var(--gris-2);}
+@media(max-width:768px){.sidebar{display:none;}.main{padding:24px 20px;}h1{font-size:28px;}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="badge">ISO 9001:2026</div><h2>Gestor de Calidad<br>Certificado</h2></div>
+  <div class="sidebar-progress"><div class="progress-label">Tu progreso</div><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="progress-pct">Módulo 6 de 9</div></div>
+  <nav><ul>
+    <li><a href="iso9001-modulo1.html" class="done"><span class="check">✓</span> Fundamentos</a></li>
+    <li><a href="iso9001-modulo2.html" class="done"><span class="check">✓</span> La norma ISO 9001:2026</a></li>
+    <li><a href="iso9001-modulo3.html" class="done"><span class="check">✓</span> Contexto</a></li>
+    <li><a href="iso9001-modulo4.html" class="done"><span class="check">✓</span> Liderazgo y Planificación</a></li>
+    <li><a href="iso9001-modulo5.html" class="done"><span class="check">✓</span> Soporte y Operación</a></li>
+    <li><a href="#" class="active"><span class="check">6</span> Evaluación del Desempeño</a></li>
+    <li><a href="#"><span class="check">7</span> Mejora Continua</a></li>
+    <li><a href="#"><span class="check">8</span> Proceso de certificación</a></li>
+    <li><a href="#"><span class="check">9</span> Proyecto Final</a></li>
+  </ul></nav>
+</aside>
+<main class="main">
+  <div class="modulo-eyebrow">Módulo 6 de 9 — Cláusula 9</div>
+  <h1>Evaluación del Desempeño</h1>
+  <p class="modulo-intro">¿Está funcionando el SGC? La Cláusula 9 responde esa pregunta con datos. Aprenderás a medir el desempeño, planificar y ejecutar auditorías internas, y llevar a cabo la revisión por la dirección.</p>
+  <div class="modulo-meta"><span class="meta-item">⏱ 2 horas</span><span class="meta-item">✅ 10 preguntas</span><span class="meta-item">📋 Checklist de auditoría interna</span></div>
+
+  <section class="seccion">
+    <h2>1. Seguimiento, medición, análisis y evaluación (C.9.1)</h2>
+    <p>La Cláusula 9.1 exige que la organización determine <strong>qué necesita seguimiento y medición, los métodos a usar, cuándo analizar los datos y cuándo informar de los resultados</strong>. La norma no dice exactamente qué medir: eso depende del contexto y los objetivos de cada organización.</p>
+
+    <h3>Indicadores clave de calidad — ejemplos prácticos</h3>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Proceso</th><th>Indicador (KPI)</th><th>Cómo medirlo</th><th>Frecuencia</th></tr></thead>
+      <tbody>
+        <tr><td>Satisfacción del cliente</td><td>Índice de satisfacción / NPS</td><td>Encuesta post-entrega</td><td>Mensual</td></tr>
+        <tr><td>Producción</td><td>Tasa de no conformidades (%)</td><td>Nº NC / Total producido</td><td>Semanal</td></tr>
+        <tr><td>Entregas</td><td>Cumplimiento de plazos (%)</td><td>Entregas a tiempo / Total</td><td>Mensual</td></tr>
+        <tr><td>Proveedores</td><td>Tasa de rechazo materiales</td><td>Lotes rechazados / Total recibidos</td><td>Mensual</td></tr>
+        <tr><td>Reclamaciones</td><td>Nº reclamaciones / mes</td><td>Registro de reclamaciones</td><td>Mensual</td></tr>
+        <tr><td>Formación</td><td>% personal con competencias al día</td><td>Fichas de competencia</td><td>Trimestral</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Satisfacción del cliente (C.9.1.2)</h3>
+    <p>Esta subcláusula exige que la organización haga seguimiento de la <strong>percepción del cliente</strong> sobre el grado en que se han cumplido sus necesidades y expectativas. No existe un método obligatorio, pero los más usados son:</p>
+    <ul>
+      <li>Encuestas de satisfacción (CSAT, NPS)</li>
+      <li>Análisis de reclamaciones y quejas</li>
+      <li>Reuniones periódicas de revisión con clientes</li>
+      <li>Análisis de la tasa de repetición de compra</li>
+    </ul>
+  </section>
+
+  <section class="seccion">
+    <h2>2. Auditoría interna (C.9.2)</h2>
+    <p>La auditoría interna es la herramienta más potente del SGC para detectar desviaciones antes de que llegue el auditor externo. La organización debe planificar, establecer, implementar y mantener un programa de auditorías internas a intervalos planificados.</p>
+
+    <div class="callout info">
+      <div class="callout-icon">🔍</div>
+      <div class="callout-body"><strong>¿Quién puede auditar internamente?</strong><p>Los auditores internos deben ser competentes en la norma y en las técnicas de auditoría. La norma no exige ninguna certificación específica, pero sí que sean <strong>independientes del área auditada</strong>: no puedes auditar tu propio trabajo. En organizaciones pequeñas, esto se resuelve auditando áreas cruzadas o contratando un auditor externo para la auditoría interna.</p></div>
+    </div>
+
+    <h3>Fases de la auditoría interna</h3>
+    <div class="auditoria-fases">
+      <div class="fase-card"><div class="fase-num">Fase 1</div><h4>Planificación</h4><p>Definir alcance, criterios, auditores y fechas. Notificar al auditado con antelación.</p></div>
+      <div class="fase-card"><div class="fase-num">Fase 2</div><h4>Revisión documental</h4><p>Revisar procedimientos, registros y resultados anteriores antes de la auditoría in situ.</p></div>
+      <div class="fase-card"><div class="fase-num">Fase 3</div><h4>Reunión apertura</h4><p>Presentar el equipo auditor, confirmar el programa y aclarar el método de trabajo.</p></div>
+      <div class="fase-card"><div class="fase-num">Fase 4</div><h4>Ejecución</h4><p>Entrevistar, observar y revisar evidencias. Registrar hallazgos (conformidades, NC y oportunidades).</p></div>
+      <div class="fase-card"><div class="fase-num">Fase 5</div><h4>Reunión cierre</h4><p>Presentar los hallazgos al auditado. Confirmar no conformidades y acordar plazos de respuesta.</p></div>
+      <div class="fase-card"><div class="fase-num">Fase 6</div><h4>Informe</h4><p>Documentar todos los hallazgos. El informe es información documentada que debe conservarse.</p></div>
+    </div>
+
+    <div class="callout ejemplo">
+      <div class="callout-icon">📦</div>
+      <div class="callout-body"><strong>Tipos de hallazgos en una auditoría</strong><p><strong>No conformidad mayor:</strong> incumplimiento de un requisito de la norma que afecta significativamente al SGC. Requiere acción correctiva antes de la certificación.<br><br><strong>No conformidad menor:</strong> incumplimiento puntual o de menor impacto. Requiere acción correctiva en el plazo acordado.<br><br><strong>Observación / oportunidad de mejora:</strong> situación que podría convertirse en NC o que podría mejorarse aunque actualmente cumple. No requiere acción correctiva, sí seguimiento.</p></div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <h2>3. Revisión por la dirección (C.9.3)</h2>
+    <p>La revisión por la dirección es la reunión periódica (al menos anual) en la que la alta dirección evalúa el desempeño del SGC y toma decisiones sobre su mejora. <strong>Es el momento en que el ciclo PDCA se cierra a nivel estratégico.</strong></p>
+
+    <h3>Entradas obligatorias de la revisión por la dirección</h3>
+    <ul>
+      <li>Estado de las acciones de revisiones anteriores</li>
+      <li>Cambios en el contexto interno y externo relevantes para el SGC</li>
+      <li>Información sobre el desempeño: satisfacción del cliente, KPIs, no conformidades, auditorías, desempeño de proveedores</li>
+      <li>Adecuación de recursos</li>
+      <li>Eficacia de las acciones para abordar riesgos y oportunidades</li>
+      <li>Oportunidades de mejora</li>
+    </ul>
+
+    <h3>Salidas obligatorias de la revisión</h3>
+    <ul>
+      <li>Decisiones sobre oportunidades de mejora</li>
+      <li>Necesidades de cambio en el SGC (incluyendo recursos)</li>
+      <li>Acciones necesarias cuando no se alcanzan los objetivos de calidad</li>
+    </ul>
+
+    <div class="callout clave">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body"><strong>Error habitual: la revisión de papel</strong><p>Muchas organizaciones hacen la revisión por la dirección como un trámite documental: rellenan un acta con datos favorables y la firman. El auditor detectará fácilmente si no hay evidencias de análisis real, debate y decisiones concretas. La revisión debe generar acciones con responsable y fecha.</p></div>
+    </div>
+
+    <div class="infografia-wrap">
+      <div class="infografia-titulo">📋 Estructura del acta de revisión por la dirección</div>
+      <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;display:block;">
+        <rect x="20" y="20" width="600" height="50" rx="8" fill="#1B3F6E"/>
+        <text x="320" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="white">ACTA DE REVISIÓN POR LA DIRECCIÓN</text>
+        <text x="320" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="rgba(255,255,255,0.75)">Fecha: _____ · Asistentes: _____ · Próxima revisión: _____</text>
+        
+        <rect x="20" y="85" width="285" height="120" rx="8" fill="#EAF1FB" stroke="#1B3F6E" stroke-width="1.5"/>
+        <text x="162" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1B3F6E">ENTRADAS (análisis)</text>
+        <text x="35" y="128" font-family="Inter,sans-serif" font-size="11" fill="#374151">✓ KPIs y objetivos de calidad</text>
+        <text x="35" y="146" font-family="Inter,sans-serif" font-size="11" fill="#374151">✓ Resultados auditorías internas</text>
+        <text x="35" y="164" font-family="Inter,sans-serif" font-size="11" fill="#374151">✓ Satisfacción del cliente</text>
+        <text x="35" y="182" font-family="Inter,sans-serif" font-size="11" fill="#374151">✓ NC y acciones correctivas</text>
+        <text x="35" y="200" font-family="Inter,sans-serif" font-size="11" fill="#374151">✓ Riesgos y oportunidades</text>
+
+        <rect x="335" y="85" width="285" height="120" rx="8" fill="#E5F4EC" stroke="#2D8B5A" stroke-width="1.5"/>
+        <text x="477" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#2D8B5A">SALIDAS (decisiones)</text>
+        <text x="350" y="128" font-family="Inter,sans-serif" font-size="11" fill="#374151">→ Objetivos revisados o nuevos</text>
+        <text x="350" y="146" font-family="Inter,sans-serif" font-size="11" fill="#374151">→ Recursos adicionales asignados</text>
+        <text x="350" y="164" font-family="Inter,sans-serif" font-size="11" fill="#374151">→ Cambios en el SGC aprobados</text>
+        <text x="350" y="182" font-family="Inter,sans-serif" font-size="11" fill="#374151">→ Acciones de mejora con fecha</text>
+        <text x="350" y="200" font-family="Inter,sans-serif" font-size="11" fill="#374151">→ Responsables asignados</text>
+
+        <rect x="20" y="220" width="600" height="120" rx="8" fill="#FDF3E0" stroke="#E8A020" stroke-width="1.5"/>
+        <text x="320" y="243" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#92600A">PLAN DE ACCIÓN (tabla de seguimiento)</text>
+        <text x="35" y="263" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#92600A">Acción</text>
+        <text x="250" y="263" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#92600A">Responsable</text>
+        <text x="400" y="263" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#92600A">Fecha</text>
+        <text x="500" y="263" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#92600A">Estado</text>
+        <line x1="35" y1="270" x2="605" y2="270" stroke="#E8A020" stroke-width="0.5"/>
+        <text x="35" y="288" font-family="Inter,sans-serif" font-size="10" fill="#374151">Revisar procedimiento de entregas</text>
+        <text x="250" y="288" font-family="Inter,sans-serif" font-size="10" fill="#374151">Logística</text>
+        <text x="400" y="288" font-family="Inter,sans-serif" font-size="10" fill="#374151">30/03/2026</text>
+        <text x="500" y="288" font-family="Inter,sans-serif" font-size="10" fill="#2D8B5A">✓ Cerrado</text>
+        <text x="35" y="308" font-family="Inter,sans-serif" font-size="10" fill="#374151">Homologar proveedor alternativo</text>
+        <text x="250" y="308" font-family="Inter,sans-serif" font-size="10" fill="#374151">Compras</text>
+        <text x="400" y="308" font-family="Inter,sans-serif" font-size="10" fill="#374151">30/06/2026</text>
+        <text x="500" y="308" font-family="Inter,sans-serif" font-size="10" fill="#E8A020">⏳ En curso</text>
+        <text x="35" y="328" font-family="Inter,sans-serif" font-size="10" fill="#374151">Formación en ISO 9001:2026 (3 personas)</text>
+        <text x="250" y="328" font-family="Inter,sans-serif" font-size="10" fill="#374151">RRHH</text>
+        <text x="400" y="328" font-family="Inter,sans-serif" font-size="10" fill="#374151">31/12/2026</text>
+        <text x="500" y="328" font-family="Inter,sans-serif" font-size="10" fill="#C0392B">⬜ Pendiente</text>
+      </svg>
+    </div>
+  </section>
+
+  <div class="descargable">
+    <div class="descargable-icon">📋</div>
+    <div class="descargable-body">
+      <h4>Checklist de auditoría interna ISO 9001</h4>
+      <p>Lista de preguntas por cláusula para planificar y ejecutar tu auditoría interna. Incluye columnas para evidencias recogidas y calificación del hallazgo.</p>
+      <button class="btn-dl" onclick="descargar()">⬇ Descargar checklist</button>
+    </div>
+  </div>
+
+  <div class="quiz-container">
+    <div class="quiz-header"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>Quiz del Módulo 6</h3><span class="quiz-badge">10 preguntas</span></div>
+    <div class="quiz-body">
+      <div class="pregunta" id="p1"><div class="pregunta-num">Pregunta 1 de 10</div><h4>¿Con qué frecuencia mínima debe realizarse la revisión por la dirección?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>Mensualmente</label>
+        <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>Trimestralmente</label>
+        <label class="opcion" onclick="sel(this,'p1',true)"><div class="opcion-dot"></div>Al menos una vez al año (a intervalos planificados)</label>
+        <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>Solo cuando hay una auditoría de certificación</label>
+      </div><div class="feedback-pregunta" id="fb1"></div></div>
+
+      <div class="pregunta" id="p2"><div class="pregunta-num">Pregunta 2 de 10</div><h4>¿Puede un empleado auditar internamente su propio proceso de trabajo?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>Sí, porque es quien mejor lo conoce</label>
+        <label class="opcion" onclick="sel(this,'p2',true)"><div class="opcion-dot"></div>No, la norma exige independencia: los auditores no pueden auditar su propio trabajo</label>
+        <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>Sí, si tiene la certificación de auditor interno</label>
+        <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>Solo si el responsable de calidad lo supervisa</label>
+      </div><div class="feedback-pregunta" id="fb2"></div></div>
+
+      <div class="pregunta" id="p3"><div class="pregunta-num">Pregunta 3 de 10</div><h4>¿Qué es una "no conformidad mayor" en una auditoría?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>Cualquier desviación de los procedimientos internos</label>
+        <label class="opcion" onclick="sel(this,'p3',true)"><div class="opcion-dot"></div>Incumplimiento de un requisito de la norma que afecta significativamente al SGC; puede bloquear la certificación</label>
+        <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>Una oportunidad de mejora detectada durante la auditoría</label>
+        <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>Un requisito que la organización ha decidido excluir del alcance</label>
+      </div><div class="feedback-pregunta" id="fb3"></div></div>
+
+      <div class="pregunta" id="p4"><div class="pregunta-num">Pregunta 4 de 10</div><h4>¿Qué método exige la norma para medir la satisfacción del cliente (C.9.1.2)?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>Encuesta NPS obligatoria</label>
+        <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>Reuniones presenciales con todos los clientes</label>
+        <label class="opcion" onclick="sel(this,'p4',true)"><div class="opcion-dot"></div>No hay método obligatorio; la organización elige el más adecuado (encuestas, análisis de quejas, reuniones…)</label>
+        <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>Análisis exclusivo de reclamaciones documentadas</label>
+      </div><div class="feedback-pregunta" id="fb4"></div></div>
+
+      <div class="pregunta" id="p5"><div class="pregunta-num">Pregunta 5 de 10</div><h4>¿Cuál de estas es una SALIDA obligatoria de la revisión por la dirección?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>La política de calidad revisada y firmada</label>
+        <label class="opcion" onclick="sel(this,'p5',true)"><div class="opcion-dot"></div>Decisiones sobre oportunidades de mejora y necesidades de cambio en el SGC con responsables y fechas</label>
+        <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>El programa de auditorías internas del año siguiente</label>
+        <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Los resultados de las encuestas de satisfacción de clientes</label>
+      </div><div class="feedback-pregunta" id="fb5"></div></div>
+
+      <div class="pregunta" id="p6"><div class="pregunta-num">Pregunta 6 de 10</div><h4>¿Cuántas fases tiene el proceso de auditoría interna?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>3 (planificación, ejecución, informe)</label>
+        <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>4</label>
+        <label class="opcion" onclick="sel(this,'p6',true)"><div class="opcion-dot"></div>6 (planificación, revisión documental, reunión apertura, ejecución, reunión cierre, informe)</label>
+        <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>8</label>
+      </div><div class="feedback-pregunta" id="fb6"></div></div>
+
+      <div class="pregunta" id="p7"><div class="pregunta-num">Pregunta 7 de 10</div><h4>¿Qué diferencia una "observación" de una "no conformidad" en una auditoría?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p7',true)"><div class="opcion-dot"></div>Una observación es una oportunidad de mejora que no constituye incumplimiento; una NC es un incumplimiento real de un requisito</label>
+        <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>No hay diferencia, son términos sinónimos en la norma</label>
+        <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Una observación requiere acción correctiva inmediata; una NC puede dejarse para la siguiente auditoría</label>
+        <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Las observaciones solo las puede emitir el auditor externo</label>
+      </div><div class="feedback-pregunta" id="fb7"></div></div>
+
+      <div class="pregunta" id="p8"><div class="pregunta-num">Pregunta 8 de 10</div><h4>¿Qué debe incluir como entrada la revisión por la dirección?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Solo los resultados de las auditorías internas del período</label>
+        <label class="opcion" onclick="sel(this,'p8',true)"><div class="opcion-dot"></div>KPIs, satisfacción del cliente, NC y AC, auditorías, riesgos, recursos y acciones de revisiones anteriores</label>
+        <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Solo los datos que sean favorables para la dirección</label>
+        <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>El presupuesto del departamento de calidad</label>
+      </div><div class="feedback-pregunta" id="fb8"></div></div>
+
+      <div class="pregunta" id="p9"><div class="pregunta-num">Pregunta 9 de 10</div><h4>¿Qué es el NPS (Net Promoter Score) en el contexto de la satisfacción del cliente?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>Un requisito obligatorio de la ISO 9001:2026</label>
+        <label class="opcion" onclick="sel(this,'p9',true)"><div class="opcion-dot"></div>Una herramienta voluntaria para medir la lealtad del cliente basada en la probabilidad de recomendación</label>
+        <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>El número de no conformidades por período según la norma</label>
+        <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>El índice de calidad del producto aprobado por el auditor</label>
+      </div><div class="feedback-pregunta" id="fb9"></div></div>
+
+      <div class="pregunta" id="p10"><div class="pregunta-num">Pregunta 10 de 10</div><h4>¿Qué problema detecta un auditor en una revisión por la dirección que solo genera un acta sin acciones concretas?</h4><div class="opciones">
+        <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Un error de formato documental</label>
+        <label class="opcion" onclick="sel(this,'p10',true)"><div class="opcion-dot"></div>Que la revisión es un trámite burocrático sin compromiso real de mejora, lo que puede ser una no conformidad</label>
+        <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Nada, la norma solo exige documentar la reunión</label>
+        <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Que falta la firma del responsable de calidad</label>
+      </div><div class="feedback-pregunta" id="fb10"></div></div>
+    </div>
+    <div class="quiz-footer">
+      <button class="btn-quiz" id="btnComprobar" onclick="comprobarQuiz()">Comprobar respuestas</button>
+      <button class="btn-quiz" id="btnReset" onclick="resetQuiz()" style="background:#fff;color:var(--azul);border:2px solid var(--gris-2);display:none;">Reintentar</button>
+      <span class="quiz-resultado" id="quizResultado"></span>
+    </div>
+  </div>
+
+  <div class="modulo-nav">
+    <a href="iso9001-modulo5.html" class="btn-nav anterior">← Módulo 5</a>
+    <a href="iso9001-modulo7.html" class="btn-nav siguiente">Módulo 7: Mejora Continua →</a>
+  </div>
+</main>
+</div>
+<script>
+const R={};
+const CI={p1:2,p2:1,p3:1,p4:2,p5:1,p6:2,p7:0,p8:1,p9:1,p10:1};
+const FB={
+  p1:{ok:'✅ Correcto. La revisión por la dirección debe realizarse al menos una vez al año, aunque muchas organizaciones la hacen trimestral o semestralmente.',ko:'❌ Incorrecto. La norma exige intervalos planificados, siendo anual el mínimo habitual aceptado.'},
+  p2:{ok:'✅ Correcto. La independencia es un requisito fundamental de la auditoría. Un auditor no puede evaluar objetivamente su propio trabajo.',ko:'❌ Incorrecto. La independencia del auditor respecto al área auditada es un requisito de la norma. No se puede auditar el propio trabajo.'},
+  p3:{ok:'✅ Correcto. Una NC mayor es un incumplimiento significativo que puede bloquear o suspender la certificación hasta que se resuelva.',ko:'❌ Incorrecto. Una NC mayor es un incumplimiento real de un requisito de la norma que afecta significativamente al SGC.'},
+  p4:{ok:'✅ Correcto. La norma no prescribe ningún método específico para medir la satisfacción del cliente. Cada organización elige el más adecuado.',ko:'❌ Incorrecto. No existe un método obligatorio. La organización elige cómo medir la satisfacción del cliente.'},
+  p5:{ok:'✅ Correcto. Las salidas de la revisión deben incluir decisiones con responsables y fechas, no solo un resumen de datos analizados.',ko:'❌ Incorrecto. Las salidas obligatorias incluyen decisiones sobre mejoras, cambios necesarios y acciones con responsable y fecha.'},
+  p6:{ok:'✅ Correcto. El proceso completo tiene 6 fases: planificación, revisión documental, apertura, ejecución, cierre e informe.',ko:'❌ Incorrecto. Son 6 fases: planificación, revisión documental previa, reunión de apertura, ejecución, reunión de cierre e informe.'},
+  p7:{ok:'✅ Correcto. Una observación no es un incumplimiento: es una alerta sobre algo que podría mejorar o convertirse en NC. No requiere acción correctiva, sí seguimiento.',ko:'❌ Incorrecto. La observación indica una oportunidad de mejora sin incumplimiento; la NC es un incumplimiento real de un requisito.'},
+  p8:{ok:'✅ Correcto. Las entradas de la revisión por la dirección están definidas en la C.9.3 e incluyen todos los datos relevantes sobre el desempeño del SGC.',ko:'❌ Incorrecto. Las entradas obligatorias cubren el desempeño completo: KPIs, satisfacción cliente, NC, auditorías, riesgos, recursos y seguimiento de acciones anteriores.'},
+  p9:{ok:'✅ Correcto. El NPS es una herramienta voluntaria (no exigida por ISO) que pregunta si el cliente recomendaría la empresa, en una escala del 0 al 10.',ko:'❌ Incorrecto. El NPS es una herramienta voluntaria de medición de lealtad del cliente. No está exigida por la norma.'},
+  p10:{ok:'✅ Correcto. Una revisión sin acciones concretas con responsables y fechas evidencia que no hay compromiso real de mejora, lo que puede registrarse como no conformidad de liderazgo.',ko:'❌ Incorrecto. Una revisión sin decisiones y acciones concretas puede ser una no conformidad por falta de compromiso real de la dirección con la mejora del SGC.'}
+};
+function sel(el,pid,ok){if(document.getElementById('btnComprobar').disabled)return;el.closest('.opciones').querySelectorAll('.opcion').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');R[pid]={idx:Array.from(el.closest('.opciones').children).indexOf(el),ok};}
+function comprobarQuiz(){const ps=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10'];if(Object.keys(R).length<ps.length){alert('Responde todas las preguntas.');return;}let a=0;ps.forEach(pid=>{const r=R[pid];const ops=document.querySelectorAll('#'+pid+' .opcion');const fb=document.getElementById('fb'+pid.substring(1));ops.forEach(o=>o.style.pointerEvents='none');if(r.ok){ops[r.idx].classList.add('correcta');fb.className='feedback-pregunta ok';fb.textContent=FB[pid].ok;a++;}else{ops[r.idx].classList.add('incorrecta');ops[CI[pid]].classList.add('correcta');fb.className='feedback-pregunta ko';fb.textContent=FB[pid].ko;}});document.getElementById('btnComprobar').disabled=true;document.getElementById('btnComprobar').style.display='none';document.getElementById('btnReset').style.display='inline-block';const res=document.getElementById('quizResultado');res.classList.add('visible');const pct=Math.round(a/10*100);res.style.color=pct>=80?'var(--verde)':pct>=60?'var(--acento)':'var(--rojo)';res.textContent=pct>=80?`🎉 ${a}/10 (${pct}%) — Excelente.`:pct>=60?`📖 ${a}/10 (${pct}%) — Repasa los errores.`:`🔄 ${a}/10 (${pct}%) — Vuelve a leer el módulo.`;}
+function resetQuiz(){Object.keys(R).forEach(k=>delete R[k]);document.querySelectorAll('.opcion').forEach(o=>{o.classList.remove('selected','correcta','incorrecta');o.style.pointerEvents='';});document.querySelectorAll('.feedback-pregunta').forEach(f=>{f.className='feedback-pregunta';f.textContent='';});document.getElementById('btnComprobar').disabled=false;document.getElementById('btnComprobar').style.display='';document.getElementById('btnReset').style.display='none';document.getElementById('quizResultado').classList.remove('visible');}
+function descargar(){const t=`CHECKLIST DE AUDITORÍA INTERNA ISO 9001\n\nCLÁUSULA 4 — CONTEXTO\n[ ] ¿Está documentado el análisis de contexto interno y externo?\n[ ] ¿Están identificadas las partes interesadas y sus expectativas?\n[ ] ¿Está definido y documentado el alcance del SGC?\n[ ] ¿Existe un mapa de procesos actualizado?\n\nCLÁUSULA 5 — LIDERAZGO\n[ ] ¿La política de calidad está aprobada y comunicada?\n[ ] ¿La dirección puede explicar los objetivos de calidad?\n[ ] ¿Están definidos los roles y responsabilidades del SGC?\n\nCLÁUSULA 6 — PLANIFICACIÓN\n[ ] ¿Existe una matriz de riesgos actualizada con acciones planificadas?\n[ ] ¿Los objetivos de calidad son SMART y tienen responsable y fecha?\n\nCLÁUSULA 7 — SOPORTE\n[ ] ¿Los equipos de medición están calibrados con certificados vigentes?\n[ ] ¿Existen registros de competencia del personal?\n[ ] ¿La información documentada está controlada (versiones, accesos)?\n\nCLÁUSULA 8 — OPERACIÓN\n[ ] ¿Los requisitos del cliente están documentados antes de la aceptación?\n[ ] ¿Las salidas no conformes se controlan y documentan?\n[ ] ¿Los proveedores críticos están evaluados y aprobados?\n\nCLÁUSULA 9 — EVALUACIÓN\n[ ] ¿Se miden los KPIs con la frecuencia definida?\n[ ] ¿La satisfacción del cliente se mide y analiza?\n[ ] ¿El programa de auditorías internas está actualizado?\n[ ] ¿El acta de revisión por la dirección incluye decisiones con fecha y responsable?\n\nCLÁUSULA 10 — MEJORA\n[ ] ¿Las no conformidades tienen acción correctiva documentada?\n[ ] ¿Se verifica la eficacia de las acciones correctivas?\n[ ] ¿Existe evidencia de mejora continua en los procesos?\n\n© Curso Gestor de Calidad ISO 9001`;const b=new Blob([t],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='checklist-auditoria-interna-iso9001.txt';a.click();URL.revokeObjectURL(u);}
+</script>
+</body>
+</html>

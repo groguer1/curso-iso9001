@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 2 — La norma ISO 9001:2026 | Curso ISO 9001</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+  :root {
+    --azul:#1B3F6E;--azul-mid:#2A5FA8;--azul-claro:#EAF1FB;--acento:#E8A020;--acento-light:#FDF3E0;
+    --verde:#2D8B5A;--verde-light:#E5F4EC;--rojo:#C0392B;--rojo-light:#FDECEA;
+    --gris-1:#F7F8FA;--gris-2:#E8EBF0;--gris-3:#9AA3B0;--texto:#1A1F2E;--radio:10px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--gris-1);color:var(--texto);font-size:16px;line-height:1.7;}
+  .layout{display:flex;min-height:100vh;}
+  .sidebar{width:270px;flex-shrink:0;background:var(--azul);color:#fff;padding:32px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+  .sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+  .sidebar-logo .badge{background:var(--acento);color:var(--azul);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:8px;}
+  .sidebar-logo h2{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.3;}
+  .sidebar-progress{padding:0 24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+  .progress-label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+  .progress-bar-bg{background:rgba(255,255,255,0.15);border-radius:4px;height:6px;}
+  .progress-bar-fill{background:var(--acento);border-radius:4px;height:6px;width:22%;}
+  .progress-pct{font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px;}
+  .sidebar nav ul{list-style:none;}
+  .sidebar nav ul li a{display:flex;align-items:center;gap:10px;padding:10px 24px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:13.5px;transition:all 0.2s;border-left:3px solid transparent;}
+  .sidebar nav ul li a:hover{color:#fff;background:rgba(255,255,255,0.05);}
+  .sidebar nav ul li a.active{color:#fff;border-left-color:var(--acento);background:rgba(255,255,255,0.08);font-weight:600;}
+  .sidebar nav ul li a.done{color:rgba(255,255,255,0.5);}
+  .sidebar nav ul li a .check{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;}
+  .sidebar nav ul li a.done .check{background:var(--verde);border-color:var(--verde);}
+  .main{flex:1;padding:48px 56px;max-width:860px;}
+  .modulo-header{margin-bottom:40px;}
+  .modulo-eyebrow{font-size:12px;font-weight:600;color:var(--azul-mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  .modulo-header h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.2;color:var(--azul);margin-bottom:16px;}
+  .modulo-header p{font-size:17px;color:#4A5568;max-width:640px;}
+  .modulo-meta{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;}
+  .meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gris-3);}
+  .seccion{margin-bottom:56px;scroll-margin-top:24px;}
+  .seccion h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--azul);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gris-2);}
+  .seccion h3{font-size:17px;font-weight:600;color:var(--texto);margin:24px 0 10px;}
+  .seccion p{color:#374151;margin-bottom:14px;}
+  .callout{padding:20px 24px;border-radius:var(--radio);margin:24px 0;display:flex;gap:16px;align-items:flex-start;}
+  .callout.info{background:var(--azul-claro);border-left:4px solid var(--azul-mid);}
+  .callout.ejemplo{background:var(--acento-light);border-left:4px solid var(--acento);}
+  .callout.clave{background:var(--verde-light);border-left:4px solid var(--verde);}
+  .callout.nuevo{background:#F3E8FF;border-left:4px solid #7C3AED;}
+  .callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+  .callout-body strong{display:block;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;color:var(--azul);}
+  .callout.ejemplo .callout-body strong{color:#92600A;}
+  .callout.clave .callout-body strong{color:var(--verde);}
+  .callout.nuevo .callout-body strong{color:#5B21B6;}
+  .callout-body p{margin:0;font-size:14.5px;}
+  .infografia-wrap{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:32px;margin:24px 0;overflow-x:auto;}
+  .infografia-titulo{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gris-3);margin-bottom:24px;}
+  .tabla-wrap{overflow-x:auto;margin:20px 0;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th{background:var(--azul);color:#fff;padding:12px 16px;text-align:left;font-weight:600;}
+  td{padding:11px 16px;border-bottom:1px solid var(--gris-2);}
+  tr:nth-child(even) td{background:var(--gris-1);}
+  tr:last-child td{border-bottom:none;}
+  .clausulas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0;}
+  .clausula-card{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:20px;border-top:4px solid var(--azul);}
+  .clausula-card.pdca-p{border-top-color:#1B3F6E;}
+  .clausula-card.pdca-d{border-top-color:#E8A020;}
+  .clausula-card.pdca-c{border-top-color:#2D8B5A;}
+  .clausula-card.pdca-a{border-top-color:#C0392B;}
+  .clausula-num{font-size:11px;font-weight:700;color:var(--gris-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+  .clausula-card h4{font-size:14px;font-weight:700;color:var(--azul);margin-bottom:8px;}
+  .clausula-card p{font-size:13px;color:#6B7280;margin:0;}
+  .badge-pdca{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-bottom:8px;}
+  .badge-p{background:#EAF1FB;color:#1B3F6E;}
+  .badge-d{background:#FDF3E0;color:#92600A;}
+  .badge-c{background:#E5F4EC;color:#2D8B5A;}
+  .badge-a{background:#FDECEA;color:#C0392B;}
+  .novedades-lista{list-style:none;margin:16px 0;}
+  .novedades-lista li{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--gris-2);font-size:14.5px;color:#374151;}
+  .novedades-lista li:last-child{border-bottom:none;}
+  .novedades-lista li .tag{background:#F3E8FF;color:#5B21B6;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;height:fit-content;}
+  .quiz-container{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);overflow:hidden;margin:32px 0;}
+  .quiz-header{background:var(--azul);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px;}
+  .quiz-header h3{font-size:16px;font-weight:600;}
+  .quiz-header .quiz-badge{background:var(--acento);color:var(--azul);font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;margin-left:auto;}
+  .quiz-body{padding:28px;}
+  .pregunta{margin-bottom:32px;}
+  .pregunta:last-child{margin-bottom:0;}
+  .pregunta-num{font-size:11px;font-weight:600;color:var(--gris-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+  .pregunta h4{font-size:15px;font-weight:600;margin-bottom:16px;}
+  .opciones{display:flex;flex-direction:column;gap:10px;}
+  .opcion{display:flex;align-items:center;gap:12px;padding:13px 16px;border:2px solid var(--gris-2);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:14px;}
+  .opcion:hover{border-color:var(--azul-mid);background:var(--azul-claro);}
+  .opcion-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--gris-2);flex-shrink:0;transition:all 0.15s;}
+  .opcion.selected{border-color:var(--azul-mid);background:var(--azul-claro);}
+  .opcion.selected .opcion-dot{background:var(--azul-mid);border-color:var(--azul-mid);}
+  .opcion.correcta{border-color:var(--verde);background:var(--verde-light);}
+  .opcion.correcta .opcion-dot{background:var(--verde);border-color:var(--verde);}
+  .opcion.incorrecta{border-color:var(--rojo);background:var(--rojo-light);}
+  .opcion.incorrecta .opcion-dot{background:var(--rojo);border-color:var(--rojo);}
+  .feedback-pregunta{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:13.5px;display:none;}
+  .feedback-pregunta.ok{background:var(--verde-light);color:#1A5C38;display:block;}
+  .feedback-pregunta.ko{background:var(--rojo-light);color:#8B1A10;display:block;}
+  .quiz-footer{padding:20px 28px;border-top:1px solid var(--gris-2);display:flex;align-items:center;gap:16px;}
+  .btn-quiz{background:var(--azul);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+  .btn-quiz:hover{background:var(--azul-mid);}
+  .btn-quiz:disabled{background:var(--gris-3);cursor:not-allowed;}
+  .quiz-resultado{font-size:14px;color:var(--gris-3);display:none;}
+  .quiz-resultado.visible{display:block;}
+  .modulo-nav{display:flex;justify-content:space-between;align-items:center;margin-top:56px;padding-top:32px;border-top:2px solid var(--gris-2);}
+  .btn-nav{display:flex;align-items:center;gap:10px;padding:13px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;}
+  .btn-nav.siguiente{background:var(--azul);color:#fff;}
+  .btn-nav.siguiente:hover{background:var(--azul-mid);}
+  .btn-nav.anterior{background:#fff;color:var(--azul);border:2px solid var(--gris-2);}
+  .btn-nav.anterior:hover{border-color:var(--azul);}
+  @media(max-width:768px){.sidebar{display:none;}.main{padding:24px 20px;}.modulo-header h1{font-size:28px;}.clausulas-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="badge">ISO 9001:2026</div>
+      <h2>Gestor de Calidad<br>Certificado</h2>
+    </div>
+    <div class="sidebar-progress">
+      <div class="progress-label">Tu progreso</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+      <div class="progress-pct">Módulo 2 de 9</div>
+    </div>
+    <nav><ul>
+      <li><a href="iso9001-modulo1.html" class="done"><span class="check">✓</span> Fundamentos de la Calidad</a></li>
+      <li><a href="#" class="active"><span class="check">2</span> La norma ISO 9001:2026</a></li>
+      <li><a href="#"><span class="check">3</span> Contexto de la Organización</a></li>
+      <li><a href="#"><span class="check">4</span> Liderazgo y Planificación</a></li>
+      <li><a href="#"><span class="check">5</span> Soporte y Operación</a></li>
+      <li><a href="#"><span class="check">6</span> Evaluación del Desempeño</a></li>
+      <li><a href="#"><span class="check">7</span> Mejora Continua</a></li>
+      <li><a href="#"><span class="check">8</span> El proceso de certificación</a></li>
+      <li><a href="#"><span class="check">9</span> Proyecto Final</a></li>
+    </ul></nav>
+  </aside>
+
+  <main class="main">
+    <div class="modulo-header">
+      <div class="modulo-eyebrow">Módulo 2 de 9</div>
+      <h1>La norma ISO 9001:2026</h1>
+      <p>Conoce la estructura de la norma, sus 10 cláusulas, la Estructura de Alto Nivel y las novedades clave de la versión 2026. Este módulo es el mapa que usarás durante todo el curso.</p>
+      <div class="modulo-meta">
+        <span class="meta-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          3 horas de lectura
+        </span>
+        <span class="meta-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          10 preguntas de quiz
+        </span>
+        <span class="meta-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          Mapa mental descargable
+        </span>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 1 -->
+    <section class="seccion" id="sec1">
+      <h2>1. ¿Qué es la ISO y quién hace las normas?</h2>
+      <p>La <strong>ISO (International Organization for Standardization)</strong> es un organismo independiente no gubernamental con sede en Ginebra, fundado en 1947. Agrupa a los organismos nacionales de normalización de 167 países. En España, el miembro de ISO es <strong>UNE (anteriormente AENOR en su función normativa)</strong>.</p>
+      <p>Las normas ISO no son leyes. Son <strong>documentos de consenso voluntario</strong> que definen buenas prácticas internacionales. Una empresa puede decidir implementar ISO 9001 sin certificarse nunca; la certificación es la demostración externa ante terceros, pero el valor real está en el sistema en sí.</p>
+      <div class="callout info">
+        <div class="callout-icon">🌍</div>
+        <div class="callout-body">
+          <strong>Datos de contexto</strong>
+          <p>La ISO 9001 es la norma de sistemas de gestión más implantada del mundo. Más de <strong>1,2 millones de organizaciones</strong> en más de 170 países tienen su certificado vigente. En España, supera las 30.000 organizaciones certificadas, desde microempresas hasta grandes corporaciones como Telefónica, BBVA o Airbus España.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: ESTRUCTURA HLS -->
+    <section class="seccion" id="sec2">
+      <h2>2. La Estructura de Alto Nivel (HLS)</h2>
+      <p>Desde 2012, todas las normas ISO de sistemas de gestión comparten una misma estructura de 10 cláusulas llamada <strong>Estructura de Alto Nivel (High Level Structure o HLS)</strong>. Esto significa que ISO 9001, ISO 14001 e ISO 45001 tienen exactamente el mismo esqueleto.</p>
+      <p>Esta decisión fue estratégica: permite a las organizaciones <strong>integrar varios sistemas de gestión</strong> sin duplicar documentación ni esfuerzo. Si tienes ISO 9001 y quieres añadir ISO 14001, el 60-70% del trabajo ya está hecho.</p>
+
+      <div class="infografia-wrap">
+        <div class="infografia-titulo">🏗️ Estructura de Alto Nivel — Las 10 cláusulas de ISO 9001</div>
+        <svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;display:block;">
+          <!-- Cláusulas 1-3: introductorias -->
+          <rect x="20" y="20" width="680" height="60" rx="8" fill="#F7F8FA" stroke="#E8EBF0" stroke-width="1.5"/>
+          <text x="360" y="44" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#9AA3B0" letter-spacing="1">CLÁUSULAS INTRODUCTORIAS (no auditables)</text>
+          <text x="360" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#6B7280">1. Objeto y campo de aplicación · 2. Referencias normativas · 3. Términos y definiciones</text>
+
+          <!-- PDCA labels -->
+          <text x="36" y="120" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#1B3F6E">PLANIFICAR</text>
+          <text x="36" y="232" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#92600A">HACER</text>
+          <text x="36" y="310" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#2D8B5A">VERIFICAR</text>
+          <text x="36" y="390" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#C0392B">ACTUAR</text>
+
+          <!-- C4 -->
+          <rect x="100" y="100" width="140" height="70" rx="8" fill="#EAF1FB" stroke="#1B3F6E" stroke-width="2"/>
+          <text x="170" y="127" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1B3F6E">CLÁUSULA 4</text>
+          <text x="170" y="144" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">Contexto de</text>
+          <text x="170" y="159" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">la organización</text>
+
+          <!-- C5 -->
+          <rect x="260" y="100" width="140" height="70" rx="8" fill="#EAF1FB" stroke="#1B3F6E" stroke-width="2"/>
+          <text x="330" y="127" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1B3F6E">CLÁUSULA 5</text>
+          <text x="330" y="144" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">Liderazgo</text>
+
+          <!-- C6 -->
+          <rect x="420" y="100" width="140" height="70" rx="8" fill="#EAF1FB" stroke="#1B3F6E" stroke-width="2"/>
+          <text x="490" y="127" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1B3F6E">CLÁUSULA 6</text>
+          <text x="490" y="144" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1B3F6E">Planificación</text>
+
+          <!-- C7 -->
+          <rect x="100" y="200" width="200" height="70" rx="8" fill="#FDF3E0" stroke="#E8A020" stroke-width="2"/>
+          <text x="200" y="227" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#92600A">CLÁUSULA 7</text>
+          <text x="200" y="244" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#92600A">Soporte</text>
+          <text x="200" y="259" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#92600A">(personas, recursos, com.)</text>
+
+          <!-- C8 -->
+          <rect x="320" y="200" width="240" height="70" rx="8" fill="#FDF3E0" stroke="#E8A020" stroke-width="2"/>
+          <text x="440" y="227" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#92600A">CLÁUSULA 8</text>
+          <text x="440" y="244" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#92600A">Operación</text>
+          <text x="440" y="259" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#92600A">(planif., diseño, producción)</text>
+
+          <!-- C9 -->
+          <rect x="100" y="290" width="560" height="70" rx="8" fill="#E5F4EC" stroke="#2D8B5A" stroke-width="2"/>
+          <text x="380" y="317" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#2D8B5A">CLÁUSULA 9</text>
+          <text x="380" y="334" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#2D8B5A">Evaluación del desempeño</text>
+          <text x="380" y="349" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2D8B5A">(seguimiento, auditorías internas, revisión por la dirección)</text>
+
+          <!-- C10 -->
+          <rect x="100" y="380" width="560" height="32" rx="8" fill="#FDECEA" stroke="#C0392B" stroke-width="2"/>
+          <text x="380" y="401" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#C0392B">CLÁUSULA 10 — Mejora (no conformidades, acciones correctivas, mejora continua)</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: LAS 10 CLÁUSULAS -->
+    <section class="seccion" id="sec3">
+      <h2>3. Las 10 cláusulas explicadas</h2>
+      <p>Aquí tienes una visión rápida de qué pide cada cláusula y qué significa en la práctica. En los módulos siguientes profundizaremos en cada una.</p>
+
+      <div class="clausulas-grid">
+        <div class="clausula-card">
+          <div class="clausula-num">Cláusula 1</div>
+          <span class="badge-pdca badge-p" style="background:#F7F8FA;color:#9AA3B0;">Introductoria</span>
+          <h4>Objeto y campo de aplicación</h4>
+          <p>Define qué organizaciones pueden usar la norma (cualquiera) y cuál es su propósito: demostrar capacidad de proporcionar productos y servicios conformes.</p>
+        </div>
+        <div class="clausula-card">
+          <div class="clausula-num">Cláusula 2</div>
+          <span class="badge-pdca badge-p" style="background:#F7F8FA;color:#9AA3B0;">Introductoria</span>
+          <h4>Referencias normativas</h4>
+          <p>Remite a ISO 9000:2015 para los términos y definiciones. Es la única referencia normativa de la ISO 9001.</p>
+        </div>
+        <div class="clausula-card">
+          <div class="clausula-num">Cláusula 3</div>
+          <span class="badge-pdca badge-p" style="background:#F7F8FA;color:#9AA3B0;">Introductoria</span>
+          <h4>Términos y definiciones</h4>
+          <p>Remite al vocabulario de ISO 9000. Los términos del glosario que viste en el Módulo 1 vienen de aquí.</p>
+        </div>
+        <div class="clausula-card pdca-p">
+          <div class="clausula-num">Cláusula 4</div>
+          <span class="badge-pdca badge-p">PLANIFICAR</span>
+          <h4>Contexto de la organización</h4>
+          <p>Análisis interno y externo, partes interesadas, alcance del SGC y mapa de procesos. El punto de partida de todo.</p>
+        </div>
+        <div class="clausula-card pdca-p">
+          <div class="clausula-num">Cláusula 5</div>
+          <span class="badge-pdca badge-p">PLANIFICAR</span>
+          <h4>Liderazgo</h4>
+          <p>Compromiso de la alta dirección, política de calidad y roles y responsabilidades dentro del SGC.</p>
+        </div>
+        <div class="clausula-card pdca-p">
+          <div class="clausula-num">Cláusula 6</div>
+          <span class="badge-pdca badge-p">PLANIFICAR</span>
+          <h4>Planificación</h4>
+          <p>Gestión de riesgos y oportunidades, objetivos de calidad y planificación de cambios en el SGC.</p>
+        </div>
+        <div class="clausula-card pdca-d">
+          <div class="clausula-num">Cláusula 7</div>
+          <span class="badge-pdca badge-d">HACER</span>
+          <h4>Soporte</h4>
+          <p>Recursos (personas, infraestructura, ambiente), competencia, toma de conciencia, comunicación e información documentada.</p>
+        </div>
+        <div class="clausula-card pdca-d">
+          <div class="clausula-num">Cláusula 8</div>
+          <span class="badge-pdca badge-d">HACER</span>
+          <h4>Operación</h4>
+          <p>Planificación operacional, requisitos del cliente, diseño y desarrollo, control de proveedores, producción y control de salidas no conformes.</p>
+        </div>
+        <div class="clausula-card pdca-c">
+          <div class="clausula-num">Cláusula 9</div>
+          <span class="badge-pdca badge-c">VERIFICAR</span>
+          <h4>Evaluación del desempeño</h4>
+          <p>Seguimiento, medición y análisis; satisfacción del cliente; auditoría interna; revisión por la dirección.</p>
+        </div>
+        <div class="clausula-card pdca-a">
+          <div class="clausula-num">Cláusula 10</div>
+          <span class="badge-pdca badge-a">ACTUAR</span>
+          <h4>Mejora</h4>
+          <p>No conformidades y acciones correctivas, y mejora continua del SGC.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: NOVEDADES 2026 -->
+    <section class="seccion" id="sec4">
+      <h2>4. Novedades de la versión 2026</h2>
+      <p>La ISO 9001:2026 es la revisión más reciente de la norma. Si ya tienes experiencia con la versión 2015, aquí están los cambios que debes conocer. Si partes de cero, los verás ya integrados en los módulos siguientes.</p>
+
+      <div class="callout nuevo">
+        <div class="callout-icon">🆕</div>
+        <div class="callout-body">
+          <strong>¿Por qué se revisó?</strong>
+          <p>Las revisiones ISO se producen cada 5–8 años para reflejar la evolución del entorno empresarial. La versión 2026 responde principalmente a tres realidades nuevas: la transformación digital, la sostenibilidad como expectativa de los grupos de interés, y la experiencia acumulada de la versión 2015.</p>
+        </div>
+      </div>
+
+      <ul class="novedades-lista">
+        <li>
+          <span class="tag">NUEVO</span>
+          <div><strong>Mayor énfasis en el conocimiento organizacional.</strong> La cláusula 7.1.6 se refuerza: la norma 2026 exige gestionar activamente el conocimiento crítico de la organización, incluyendo el riesgo de pérdida de conocimiento por rotación de personal o cambios tecnológicos.</div>
+        </li>
+        <li>
+          <span class="tag">NUEVO</span>
+          <div><strong>Sostenibilidad integrada en el contexto.</strong> La cláusula 4.1 incorpora explícitamente factores medioambientales y sociales como parte del análisis del contexto, conectando con los objetivos de desarrollo sostenible.</div>
+        </li>
+        <li>
+          <span class="tag">NUEVO</span>
+          <div><strong>Transformación digital en la información documentada.</strong> La cláusula 7.5 actualiza los requisitos para incluir formatos digitales, sistemas automatizados y la seguridad de la información documentada en entornos cloud.</div>
+        </li>
+        <li>
+          <span class="tag">REFORZADO</span>
+          <div><strong>Pensamiento basado en riesgos más operativo.</strong> La cláusula 6.1 añade orientación sobre cómo integrar la gestión de riesgos en los procesos operativos reales, no solo como ejercicio de planificación.</div>
+        </li>
+        <li>
+          <span class="tag">REFORZADO</span>
+          <div><strong>Cadena de suministro más exigente.</strong> La cláusula 8.4 sobre control de proveedores se amplía para incluir criterios de evaluación de toda la cadena de valor, no solo del proveedor directo.</div>
+        </li>
+        <li>
+          <span class="tag">SIMPLIFICADO</span>
+          <div><strong>Reducción de redundancias documentales.</strong> Algunos requisitos de documentación que se solapaban entre cláusulas se han consolidado, reduciendo la burocracia sin perder trazabilidad.</div>
+        </li>
+      </ul>
+
+      <div class="callout clave">
+        <div class="callout-icon">🎯</div>
+        <div class="callout-body">
+          <strong>Ventaja competitiva ahora mismo</strong>
+          <p>La mayoría de los cursos del mercado siguen basados en la versión 2015. Formarte directamente en la versión 2026 te posiciona mejor frente a empleadores y clientes que ya necesitan hacer la transición.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: COMPARATIVA VERSIONES -->
+    <section class="seccion" id="sec5">
+      <h2>5. Comparativa: versiones 2015 vs 2026</h2>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr><th>Aspecto</th><th>ISO 9001:2015</th><th>ISO 9001:2026</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Estructura</strong></td><td>10 cláusulas HLS</td><td>10 cláusulas HLS (sin cambios)</td></tr>
+            <tr><td><strong>Contexto (C.4)</strong></td><td>Factores internos y externos</td><td>+ factores medioambientales y sociales</td></tr>
+            <tr><td><strong>Riesgos (C.6)</strong></td><td>Identificar y abordar</td><td>+ integración operativa más detallada</td></tr>
+            <tr><td><strong>Conocimiento (C.7.1.6)</strong></td><td>Mantener el conocimiento</td><td>+ gestión activa, riesgo de pérdida</td></tr>
+            <tr><td><strong>Info. documentada (C.7.5)</strong></td><td>Formatos físicos y digitales</td><td>+ entornos cloud, seguridad digital</td></tr>
+            <tr><td><strong>Proveedores (C.8.4)</strong></td><td>Control del proveedor directo</td><td>+ visión de cadena de valor completa</td></tr>
+            <tr><td><strong>Sostenibilidad</strong></td><td>No mencionada explícitamente</td><td>Integrada en varias cláusulas</td></tr>
+            <tr><td><strong>Certificados 2015</strong></td><td>Vigentes</td><td>Transición obligatoria antes de 2028</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <h3>Quiz del Módulo 2</h3>
+        <span class="quiz-badge">10 preguntas</span>
+      </div>
+      <div class="quiz-body" id="quizBody">
+
+        <div class="pregunta" id="p1">
+          <div class="pregunta-num">Pregunta 1 de 10</div>
+          <h4>¿Qué es la ISO y qué tipo de documentos produce?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>Un organismo regulador de la UE que emite leyes de obligado cumplimiento</label>
+            <label class="opcion" onclick="sel(this,'p1',true)"><div class="opcion-dot"></div>Un organismo independiente internacional que produce normas voluntarias de consenso</label>
+            <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>Una agencia de certificación que audita empresas directamente</label>
+            <label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>Un organismo exclusivamente europeo de normalización</label>
+          </div>
+          <div class="feedback-pregunta" id="fb1"></div>
+        </div>
+
+        <div class="pregunta" id="p2">
+          <div class="pregunta-num">Pregunta 2 de 10</div>
+          <h4>¿Qué es la Estructura de Alto Nivel (HLS)?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>El nivel jerárquico más alto de una organización certificada</label>
+            <label class="opcion" onclick="sel(this,'p2',true)"><div class="opcion-dot"></div>La estructura común de 10 cláusulas que comparten todas las normas ISO de sistemas de gestión</label>
+            <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>El conjunto de documentos obligatorios que exige la ISO 9001</label>
+            <label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>El organigrama de una empresa certificada ISO</label>
+          </div>
+          <div class="feedback-pregunta" id="fb2"></div>
+        </div>
+
+        <div class="pregunta" id="p3">
+          <div class="pregunta-num">Pregunta 3 de 10</div>
+          <h4>¿Cuántas cláusulas tiene la ISO 9001 y cuántas son auditables?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>10 cláusulas, todas auditables</label>
+            <label class="opcion" onclick="sel(this,'p3',true)"><div class="opcion-dot"></div>10 cláusulas, pero solo las cláusulas 4 a 10 son auditables (las 3 primeras son introductorias)</label>
+            <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>8 cláusulas, todas auditables</label>
+            <label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>10 cláusulas, pero solo las cláusulas 7 y 8 son auditables</label>
+          </div>
+          <div class="feedback-pregunta" id="fb3"></div>
+        </div>
+
+        <div class="pregunta" id="p4">
+          <div class="pregunta-num">Pregunta 4 de 10</div>
+          <h4>¿A qué fase del ciclo PDCA corresponde la Cláusula 9 de la ISO 9001?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>P — Planificar</label>
+            <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>D — Hacer</label>
+            <label class="opcion" onclick="sel(this,'p4',true)"><div class="opcion-dot"></div>C — Verificar</label>
+            <label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>A — Actuar</label>
+          </div>
+          <div class="feedback-pregunta" id="fb4"></div>
+        </div>
+
+        <div class="pregunta" id="p5">
+          <div class="pregunta-num">Pregunta 5 de 10</div>
+          <h4>¿Cuál es la principal ventaja de que ISO 9001 e ISO 14001 compartan la misma Estructura de Alto Nivel?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Que una sola auditoría certifica ambas normas automáticamente</label>
+            <label class="opcion" onclick="sel(this,'p5',true)"><div class="opcion-dot"></div>Que una organización puede integrar ambos sistemas sin duplicar documentación ni esfuerzo</label>
+            <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Que el coste de certificación se reduce a la mitad</label>
+            <label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Que ambas normas tienen exactamente los mismos requisitos</label>
+          </div>
+          <div class="feedback-pregunta" id="fb5"></div>
+        </div>
+
+        <div class="pregunta" id="p6">
+          <div class="pregunta-num">Pregunta 6 de 10</div>
+          <h4>¿Qué cláusula de la ISO 9001 trata el control de proveedores?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Cláusula 5</label>
+            <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Cláusula 6</label>
+            <label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Cláusula 7</label>
+            <label class="opcion" onclick="sel(this,'p6',true)"><div class="opcion-dot"></div>Cláusula 8</label>
+          </div>
+          <div class="feedback-pregunta" id="fb6"></div>
+        </div>
+
+        <div class="pregunta" id="p7">
+          <div class="pregunta-num">Pregunta 7 de 10</div>
+          <h4>¿Cuál es una de las principales novedades de la versión ISO 9001:2026 respecto a la 2015?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>La eliminación del pensamiento basado en riesgos</label>
+            <label class="opcion" onclick="sel(this,'p7',true)"><div class="opcion-dot"></div>La integración explícita de sostenibilidad en el análisis de contexto</label>
+            <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>La reducción de 10 a 8 cláusulas</label>
+            <label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>La obligatoriedad de contratar una consultora externa</label>
+          </div>
+          <div class="feedback-pregunta" id="fb7"></div>
+        </div>
+
+        <div class="pregunta" id="p8">
+          <div class="pregunta-num">Pregunta 8 de 10</div>
+          <h4>¿Hasta cuándo pueden seguir vigentes los certificados ISO 9001:2015?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Caducaron en 2025</label>
+            <label class="opcion" onclick="sel(this,'p8',true)"><div class="opcion-dot"></div>Hasta 2028, fecha límite de transición obligatoria</label>
+            <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Son válidos indefinidamente</label>
+            <label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Solo hasta finales de 2026</label>
+          </div>
+          <div class="feedback-pregunta" id="fb8"></div>
+        </div>
+
+        <div class="pregunta" id="p9">
+          <div class="pregunta-num">Pregunta 9 de 10</div>
+          <h4>¿Qué cláusula de la ISO 9001 aborda la política de calidad y el compromiso de la alta dirección?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>Cláusula 4</label>
+            <label class="opcion" onclick="sel(this,'p9',true)"><div class="opcion-dot"></div>Cláusula 5</label>
+            <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>Cláusula 6</label>
+            <label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>Cláusula 7</label>
+          </div>
+          <div class="feedback-pregunta" id="fb9"></div>
+        </div>
+
+        <div class="pregunta" id="p10">
+          <div class="pregunta-num">Pregunta 10 de 10</div>
+          <h4>¿Qué nueva exigencia introduce la ISO 9001:2026 en la cláusula 7.1.6 sobre conocimiento organizacional?</h4>
+          <div class="opciones">
+            <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Crear una base de datos centralizada de todos los procesos</label>
+            <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Certificar individualmente a todo el personal clave</label>
+            <label class="opcion" onclick="sel(this,'p10',true)"><div class="opcion-dot"></div>Gestionar activamente el riesgo de pérdida de conocimiento crítico (rotación, cambios tecnológicos)</label>
+            <label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Externalizar la gestión del conocimiento a un proveedor especializado</label>
+          </div>
+          <div class="feedback-pregunta" id="fb10"></div>
+        </div>
+
+      </div>
+      <div class="quiz-footer">
+        <button class="btn-quiz" id="btnComprobar" onclick="comprobarQuiz()">Comprobar respuestas</button>
+        <button class="btn-quiz" id="btnReset" onclick="resetQuiz()" style="background:#fff;color:var(--azul);border:2px solid var(--gris-2);display:none;">Reintentar</button>
+        <span class="quiz-resultado" id="quizResultado"></span>
+      </div>
+    </div>
+
+    <div class="modulo-nav">
+      <a href="iso9001-modulo1.html" class="btn-nav anterior">← Módulo 1: Fundamentos</a>
+      <a href="iso9001-modulo3.html" class="btn-nav siguiente">Módulo 3: Contexto →</a>
+    </div>
+  </main>
+</div>
+
+<script>
+  const respuestas={};
+  const correctIdx={p1:1,p2:1,p3:1,p4:2,p5:1,p6:3,p7:1,p8:1,p9:1,p10:2};
+  const feedbacks={
+    p1:{ok:'✅ Correcto. La ISO es un organismo voluntario e independiente. Sus normas no son leyes, aunque en algunos contextos la ley las puede referenciar.',ko:'❌ No es correcto. La ISO produce normas voluntarias de consenso internacional, no leyes. Es independiente de los gobiernos.'},
+    p2:{ok:'✅ Exacto. La HLS es la estructura común que comparten todas las normas ISO de sistemas de gestión desde 2012, facilitando la integración.',ko:'❌ No es correcto. La Estructura de Alto Nivel (HLS) es el esqueleto de 10 cláusulas que comparten ISO 9001, ISO 14001, ISO 45001 y otras normas de gestión.'},
+    p3:{ok:'✅ Correcto. Las cláusulas 1, 2 y 3 son introductorias (definen alcance, referencias y vocabulario). Las cláusulas 4 a 10 contienen los requisitos auditables.',ko:'❌ No es correcto. La ISO 9001 tiene 10 cláusulas, pero las tres primeras son introductorias y no se auditan. Los requisitos auditables van de la 4 a la 10.'},
+    p4:{ok:'✅ Correcto. La Cláusula 9 (Evaluación del desempeño) corresponde a la fase C — Check (Verificar) del ciclo PDCA.',ko:'❌ No es correcto. La Cláusula 9 corresponde a "Verificar" (C del PDCA): es donde se mide, se audita internamente y se revisa por la dirección.'},
+    p5:{ok:'✅ Exacto. La HLS permite integrar múltiples sistemas de gestión reutilizando documentación, procesos y hasta auditorías combinadas.',ko:'❌ No es correcto. La ventaja clave de la HLS es la integración eficiente de varios sistemas de gestión sin duplicar trabajo.'},
+    p6:{ok:'✅ Correcto. El control de proveedores y la gestión de procesos, productos y servicios suministrados externamente están en la Cláusula 8 (Operación).',ko:'❌ No es correcto. El control de proveedores está en la Cláusula 8 (Operación), específicamente en la subcláusula 8.4.'},
+    p7:{ok:'✅ Correcto. La versión 2026 integra explícitamente la sostenibilidad (factores medioambientales y sociales) en el análisis de contexto de la Cláusula 4.',ko:'❌ No es correcto. Una de las novedades más relevantes es la integración de la sostenibilidad en el análisis de contexto (C.4), respondiendo a la evolución del entorno empresarial.'},
+    p8:{ok:'✅ Correcto. Los certificados ISO 9001:2015 siguen siendo válidos, pero la transición a la versión 2026 debe completarse antes de 2028.',ko:'❌ No es correcto. Los certificados 2015 siguen vigentes y la transición obligatoria tiene como fecha límite 2028.'},
+    p9:{ok:'✅ Correcto. La Cláusula 5 (Liderazgo) es donde la norma exige el compromiso visible de la alta dirección y la definición de la política de calidad.',ko:'❌ No es correcto. El liderazgo y la política de calidad están en la Cláusula 5.'},
+    p10:{ok:'✅ Exacto. La versión 2026 refuerza la gestión activa del conocimiento, incluyendo el riesgo de perderlo por rotación de personal o cambios tecnológicos.',ko:'❌ No es correcto. La novedad es la gestión activa del riesgo de pérdida del conocimiento crítico organizacional.'}
+  };
+  function sel(el,pid,ok){
+    if(document.getElementById('btnComprobar').disabled)return;
+    el.closest('.opciones').querySelectorAll('.opcion').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    const idx=Array.from(el.closest('.opciones').children).indexOf(el);
+    respuestas[pid]={idx,ok};
+  }
+  function comprobarQuiz(){
+    const ps=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10'];
+    if(Object.keys(respuestas).length<ps.length){alert('Por favor responde todas las preguntas.');return;}
+    let aciertos=0;
+    ps.forEach(pid=>{
+      const r=respuestas[pid];
+      const ops=document.querySelectorAll(`#${pid} .opcion`);
+      const fb=document.getElementById('fb'+pid.substring(1));
+      ops.forEach(o=>o.style.pointerEvents='none');
+      if(r.ok){ops[r.idx].classList.add('correcta');fb.className='feedback-pregunta ok';fb.textContent=feedbacks[pid].ok;aciertos++;}
+      else{ops[r.idx].classList.add('incorrecta');ops[correctIdx[pid]].classList.add('correcta');fb.className='feedback-pregunta ko';fb.textContent=feedbacks[pid].ko;}
+    });
+    document.getElementById('btnComprobar').disabled=true;document.getElementById('btnComprobar').style.display='none';
+    document.getElementById('btnReset').style.display='inline-block';
+    const res=document.getElementById('quizResultado');res.classList.add('visible');
+    const pct=Math.round(aciertos/ps.length*100);
+    if(pct>=80){res.style.color='var(--verde)';res.textContent=`🎉 ${aciertos}/10 (${pct}%) — ¡Excelente! Continúa al Módulo 3.`;}
+    else if(pct>=60){res.style.color='var(--acento)';res.textContent=`📖 ${aciertos}/10 (${pct}%) — Repasa las incorrectas antes de continuar.`;}
+    else{res.style.color='var(--rojo)';res.textContent=`🔄 ${aciertos}/10 (${pct}%) — Te recomendamos releer el módulo.`;}
+  }
+  function resetQuiz(){
+    Object.keys(respuestas).forEach(k=>delete respuestas[k]);
+    document.querySelectorAll('.opcion').forEach(o=>{o.classList.remove('selected','correcta','incorrecta');o.style.pointerEvents='';});
+    document.querySelectorAll('.feedback-pregunta').forEach(f=>{f.className='feedback-pregunta';f.textContent='';});
+    document.getElementById('btnComprobar').disabled=false;document.getElementById('btnComprobar').style.display='';
+    document.getElementById('btnReset').style.display='none';
+    const res=document.getElementById('quizResultado');res.classList.remove('visible');res.textContent='';
+  }
+</script>
+</body>
+</html>

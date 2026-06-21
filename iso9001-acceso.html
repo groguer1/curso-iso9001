@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso al Curso — Gestor ISO 9001:2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+:root{--azul:#1B3F6E;--azul-mid:#2A5FA8;--azul-claro:#EAF1FB;--acento:#E8A020;--verde:#2D8B5A;--verde-light:#E5F4EC;--rojo:#C0392B;--rojo-light:#FDECEA;--gris-1:#F7F8FA;--gris-2:#E8EBF0;--gris-3:#9AA3B0;--texto:#1A1F2E;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0F2745 0%,#1B3F6E 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.login-card{background:#fff;border-radius:20px;padding:48px;max-width:420px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,0.3);}
+.login-logo{text-align:center;margin-bottom:32px;}
+.login-logo h1{font-family:'DM Serif Display',serif;font-size:22px;color:var(--azul);margin-top:12px;}
+.login-logo p{font-size:13px;color:var(--gris-3);margin-top:4px;}
+.badge-iso{display:inline-block;background:var(--azul-claro);color:var(--azul-mid);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:0.5px;margin-bottom:8px;}
+h2{font-family:'DM Serif Display',serif;font-size:24px;color:var(--azul);margin-bottom:8px;}
+.login-sub{font-size:14px;color:var(--gris-3);margin-bottom:28px;}
+.campo{margin-bottom:20px;}
+.campo label{display:block;font-size:13px;font-weight:600;color:var(--texto);margin-bottom:8px;}
+.campo input{width:100%;border:2px solid var(--gris-2);border-radius:8px;padding:13px 16px;font-family:'Inter',sans-serif;font-size:15px;color:var(--texto);transition:border-color 0.2s;outline:none;}
+.campo input:focus{border-color:var(--azul-mid);background:var(--azul-claro);}
+.campo input.error{border-color:var(--rojo);background:var(--rojo-light);}
+.error-msg{font-size:13px;color:var(--rojo);margin-top:8px;display:none;}
+.error-msg.visible{display:block;}
+.btn-login{width:100%;background:var(--azul);color:#fff;border:none;padding:15px;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;transition:background 0.2s;margin-top:8px;}
+.btn-login:hover{background:var(--azul-mid);}
+.btn-login:disabled{background:var(--gris-3);cursor:not-allowed;}
+.separador{text-align:center;font-size:13px;color:var(--gris-3);margin:20px 0;position:relative;}
+.separador::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:var(--gris-2);}
+.separador span{background:#fff;padding:0 12px;position:relative;}
+.info-acceso{background:var(--azul-claro);border-radius:8px;padding:16px;font-size:13px;color:var(--azul-mid);margin-top:20px;}
+.info-acceso strong{display:block;margin-bottom:4px;}
+.pie-login{text-align:center;margin-top:24px;font-size:13px;color:var(--gris-3);}
+.pie-login a{color:var(--azul-mid);text-decoration:underline;}
+/* Estado cargando */
+.spinner{display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* Panel de bienvenida tras login */
+.bienvenida-panel{display:none;text-align:center;}
+.bienvenida-panel .check-grande{font-size:60px;margin-bottom:16px;}
+.bienvenida-panel h2{margin-bottom:8px;}
+.bienvenida-panel p{font-size:14px;color:var(--gris-3);margin-bottom:24px;}
+.btn-entrar{display:inline-block;background:var(--verde);color:#fff;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:background 0.2s;}
+.btn-entrar:hover{background:#236B47;}
+</style>
+</head>
+<body>
+<div class="login-card">
+  <!-- FORMULARIO LOGIN -->
+  <div id="panelLogin">
+    <div class="login-logo">
+      <div class="badge-iso">ISO 9001:2026</div>
+      <h1>Gestor de Calidad</h1>
+      <p>Área privada de alumnos</p>
+    </div>
+
+    <h2>Accede al curso</h2>
+    <p class="login-sub">Introduce tu email y la contraseña que recibiste tras el pago.</p>
+
+    <div class="campo">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="tu@email.com" autocomplete="email">
+    </div>
+
+    <div class="campo">
+      <label for="password">Contraseña de acceso</label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+      <div class="error-msg" id="errorMsg">❌ Email o contraseña incorrectos. Revisa el email que recibiste tras el pago.</div>
+    </div>
+
+    <button class="btn-login" id="btnLogin" onclick="intentarLogin()">
+      <span id="btnTexto">Acceder al curso</span>
+      <div class="spinner" id="spinner"></div>
+    </button>
+
+    <div class="separador"><span>¿No tienes acceso?</span></div>
+
+    <div style="text-align:center;">
+      <a href="iso9001-landing.html" style="display:inline-block;background:var(--acento);color:var(--azul);padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;">
+        Comprar acceso al curso →
+      </a>
+    </div>
+
+    <div class="info-acceso">
+      <strong>💡 ¿No encuentras tu contraseña?</strong>
+      Revisa la bandeja de entrada del email con el que pagaste. Si no la encuentras, escríbenos a <strong>dmateos.pascual@gmail.com</strong>
+    </div>
+
+    <div class="pie-login">
+      <a href="iso9001-landing.html">← Volver a la página del curso</a>
+    </div>
+  </div>
+
+  <!-- PANEL BIENVENIDA (tras login correcto) -->
+  <div class="bienvenida-panel" id="panelBienvenida">
+    <div class="check-grande">✅</div>
+    <h2>¡Bienvenido!</h2>
+    <p>Acceso verificado. Redirigiendo al área de alumnos...</p>
+    <a href="iso9001-index.html" class="btn-entrar">Entrar al curso →</a>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// SISTEMA DE ACCESO
+// Para añadir alumnos: añade {email, pass, plan} al array ALUMNOS
+// Puedes generar contraseñas en: https://passwordsgenerator.net/
+// ─────────────────────────────────────────────
+const ALUMNOS = [
+  // { email: "alumno@email.com", pass: "CONTRASEÑA123", plan: "basico" },
+  // { email: "otro@email.com",   pass: "CONTRASEÑA456", plan: "premium" },
+
+  // ACCESO DE PRUEBA (elimínalo en producción):
+  { email: "demo@iso9001.es", pass: "DEMO2026", plan: "premium" }
+];
+
+function intentarLogin() {
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const pass = document.getElementById('password').value.trim();
+  const btn = document.getElementById('btnLogin');
+  const txt = document.getElementById('btnTexto');
+  const spin = document.getElementById('spinner');
+  const err = document.getElementById('errorMsg');
+
+  // Validación básica
+  if (!email || !pass) {
+    err.textContent = '❌ Por favor introduce tu email y contraseña.';
+    err.classList.add('visible');
+    return;
+  }
+
+  // Simular carga
+  btn.disabled = true;
+  txt.style.display = 'none';
+  spin.style.display = 'block';
+  err.classList.remove('visible');
+
+  setTimeout(() => {
+    const alumno = ALUMNOS.find(a =>
+      a.email.toLowerCase() === email && a.pass === pass
+    );
+
+    if (alumno) {
+      // LOGIN CORRECTO
+      // Guardamos sesión en sessionStorage (dura hasta cerrar el navegador)
+      sessionStorage.setItem('iso_logged', '1');
+      sessionStorage.setItem('iso_plan', alumno.plan);
+      sessionStorage.setItem('iso_email', email);
+
+      // Mostramos panel de bienvenida
+      document.getElementById('panelLogin').style.display = 'none';
+      document.getElementById('panelBienvenida').style.display = 'block';
+
+      // Redirigimos automáticamente tras 2 segundos
+      setTimeout(() => { window.location.href = 'iso9001-index.html'; }, 2000);
+
+    } else {
+      // LOGIN INCORRECTO
+      btn.disabled = false;
+      txt.style.display = 'block';
+      spin.style.display = 'none';
+      document.getElementById('password').classList.add('error');
+      err.textContent = '❌ Email o contraseña incorrectos. Revisa el email que recibiste tras el pago o escríbenos.';
+      err.classList.add('visible');
+    }
+  }, 900); // Simula 0.9s de verificación
+}
+
+// Permitir login con Enter
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') intentarLogin();
+});
+
+// Limpiar error al escribir
+document.getElementById('password').addEventListener('input', () => {
+  document.getElementById('password').classList.remove('error');
+  document.getElementById('errorMsg').classList.remove('visible');
+});
+</script>
+</body>
+</html>

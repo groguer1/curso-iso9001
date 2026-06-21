@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 7 — Mejora Continua | Curso ISO 9001</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+  :root{--azul:#1B3F6E;--azul-mid:#2A5FA8;--azul-claro:#EAF1FB;--acento:#E8A020;--acento-light:#FDF3E0;--verde:#2D8B5A;--verde-light:#E5F4EC;--rojo:#C0392B;--rojo-light:#FDECEA;--gris-1:#F7F8FA;--gris-2:#E8EBF0;--gris-3:#9AA3B0;--texto:#1A1F2E;--radio:10px;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--gris-1);color:var(--texto);font-size:16px;line-height:1.7;}
+  .layout{display:flex;min-height:100vh;}
+  .sidebar{width:270px;flex-shrink:0;background:var(--azul);color:#fff;padding:32px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+  .sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+  .sidebar-logo .badge{background:var(--acento);color:var(--azul);font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:8px;}
+  .sidebar-logo h2{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.3;}
+  .sidebar-progress{padding:0 24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+  .progress-label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+  .progress-bar-bg{background:rgba(255,255,255,0.15);border-radius:4px;height:6px;}
+  .progress-bar-fill{background:var(--acento);border-radius:4px;height:6px;width:77%;}
+  .progress-pct{font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px;}
+  .sidebar nav ul{list-style:none;}
+  .sidebar nav ul li a{display:flex;align-items:center;gap:10px;padding:10px 24px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:13.5px;border-left:3px solid transparent;}
+  .sidebar nav ul li a.active{color:#fff;border-left-color:var(--acento);background:rgba(255,255,255,0.08);font-weight:600;}
+  .sidebar nav ul li a.done{color:rgba(255,255,255,0.5);}
+  .sidebar nav ul li a .check{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;}
+  .sidebar nav ul li a.done .check{background:var(--verde);border-color:var(--verde);}
+  .main{flex:1;padding:48px 56px;max-width:860px;}
+  .modulo-eyebrow{font-size:12px;font-weight:600;color:var(--azul-mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.2;color:var(--azul);margin-bottom:16px;}
+  .intro{font-size:17px;color:#4A5568;max-width:640px;margin-bottom:20px;}
+  .meta{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap;}
+  .meta span{font-size:13px;color:var(--gris-3);}
+  .seccion{margin-bottom:56px;}
+  .seccion h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--azul);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gris-2);}
+  .seccion h3{font-size:17px;font-weight:600;margin:24px 0 10px;}
+  .seccion p{color:#374151;margin-bottom:14px;}
+  .seccion ul{margin:0 0 14px 20px;color:#374151;}
+  .seccion ul li{margin-bottom:8px;}
+  .callout{padding:20px 24px;border-radius:var(--radio);margin:24px 0;display:flex;gap:16px;}
+  .callout.info{background:var(--azul-claro);border-left:4px solid var(--azul-mid);}
+  .callout.ejemplo{background:var(--acento-light);border-left:4px solid var(--acento);}
+  .callout.clave{background:var(--verde-light);border-left:4px solid var(--verde);}
+  .callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+  .callout-body strong{display:block;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;color:var(--azul);}
+  .callout.ejemplo .callout-body strong{color:#92600A;}
+  .callout.clave .callout-body strong{color:var(--verde);}
+  .callout-body p{margin:0;font-size:14.5px;}
+  .infografia-wrap{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:32px;margin:24px 0;overflow-x:auto;}
+  .infografia-titulo{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gris-3);margin-bottom:24px;}
+  .tabla-wrap{overflow-x:auto;margin:20px 0;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th{background:var(--azul);color:#fff;padding:12px 16px;text-align:left;font-weight:600;}
+  td{padding:11px 16px;border-bottom:1px solid var(--gris-2);}
+  tr:nth-child(even) td{background:var(--gris-1);}
+  tr:last-child td{border-bottom:none;}
+  .ac-proceso{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+  .ac-paso{display:flex;gap:16px;padding:18px 20px;background:#fff;border:1px solid var(--gris-2);border-bottom:none;align-items:flex-start;}
+  .ac-paso:first-child{border-radius:var(--radio) var(--radio) 0 0;}
+  .ac-paso:last-child{border-bottom:1px solid var(--gris-2);border-radius:0 0 var(--radio) var(--radio);}
+  .ac-num{width:32px;height:32px;border-radius:50%;background:var(--rojo);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ac-body h4{font-size:14px;font-weight:700;color:var(--texto);margin-bottom:4px;}
+  .ac-body p{font-size:13.5px;color:#374151;margin:0;}
+  .herramientas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:24px 0;}
+  .herramienta-card{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:18px;border-top:3px solid var(--azul);}
+  .herramienta-card h4{font-size:13px;font-weight:700;color:var(--azul);margin-bottom:6px;}
+  .herramienta-card p{font-size:12.5px;color:#6B7280;margin:0;}
+  .plantilla-descargable{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-mid) 100%);border-radius:var(--radio);padding:28px 32px;color:#fff;display:flex;align-items:center;gap:24px;margin:32px 0;}
+  .plantilla-icon{font-size:40px;flex-shrink:0;}
+  .plantilla-body h4{font-size:17px;font-weight:600;margin-bottom:6px;}
+  .plantilla-body p{font-size:13.5px;color:rgba(255,255,255,0.75);margin:0 0 16px;}
+  .btn-dl{background:var(--acento);color:var(--azul);border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;}
+  .quiz-container{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);overflow:hidden;margin:32px 0;}
+  .quiz-header{background:var(--azul);color:#fff;padding:20px 28px;display:flex;align-items:center;gap:12px;}
+  .quiz-header h3{font-size:16px;font-weight:600;}
+  .quiz-badge{background:var(--acento);color:var(--azul);font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;margin-left:auto;}
+  .quiz-body{padding:28px;}
+  .pregunta{margin-bottom:32px;}
+  .pregunta:last-child{margin-bottom:0;}
+  .pregunta-num{font-size:11px;font-weight:600;color:var(--gris-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+  .pregunta h4{font-size:15px;font-weight:600;margin-bottom:16px;}
+  .opciones{display:flex;flex-direction:column;gap:10px;}
+  .opcion{display:flex;align-items:center;gap:12px;padding:13px 16px;border:2px solid var(--gris-2);border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:14px;}
+  .opcion:hover{border-color:var(--azul-mid);background:var(--azul-claro);}
+  .opcion-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--gris-2);flex-shrink:0;}
+  .opcion.selected{border-color:var(--azul-mid);background:var(--azul-claro);}
+  .opcion.selected .opcion-dot{background:var(--azul-mid);border-color:var(--azul-mid);}
+  .opcion.correcta{border-color:var(--verde);background:var(--verde-light);}
+  .opcion.correcta .opcion-dot{background:var(--verde);border-color:var(--verde);}
+  .opcion.incorrecta{border-color:var(--rojo);background:var(--rojo-light);}
+  .opcion.incorrecta .opcion-dot{background:var(--rojo);border-color:var(--rojo);}
+  .feedback-pregunta{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:13.5px;display:none;}
+  .feedback-pregunta.ok{background:var(--verde-light);color:#1A5C38;display:block;}
+  .feedback-pregunta.ko{background:var(--rojo-light);color:#8B1A10;display:block;}
+  .quiz-footer{padding:20px 28px;border-top:1px solid var(--gris-2);display:flex;align-items:center;gap:16px;}
+  .btn-quiz{background:var(--azul);color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
+  .btn-quiz:disabled{background:var(--gris-3);cursor:not-allowed;}
+  .quiz-resultado{font-size:14px;color:var(--gris-3);display:none;}
+  .quiz-resultado.visible{display:block;}
+  .modulo-nav{display:flex;justify-content:space-between;align-items:center;margin-top:56px;padding-top:32px;border-top:2px solid var(--gris-2);}
+  .btn-nav{display:flex;align-items:center;gap:10px;padding:13px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;}
+  .btn-nav.siguiente{background:var(--azul);color:#fff;}
+  .btn-nav.anterior{background:#fff;color:var(--azul);border:2px solid var(--gris-2);}
+  @media(max-width:768px){.sidebar{display:none;}.main{padding:24px 20px;}h1{font-size:28px;}.herramientas-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="badge">ISO 9001:2026</div><h2>Gestor de Calidad<br>Certificado</h2></div>
+    <div class="sidebar-progress">
+      <div class="progress-label">Tu progreso</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+      <div class="progress-pct">Módulo 7 de 9</div>
+    </div>
+    <nav><ul>
+      <li><a href="iso9001-modulo1.html" class="done"><span class="check">✓</span> Fundamentos</a></li>
+      <li><a href="iso9001-modulo2.html" class="done"><span class="check">✓</span> La norma ISO 9001:2026</a></li>
+      <li><a href="iso9001-modulo3.html" class="done"><span class="check">✓</span> Contexto</a></li>
+      <li><a href="iso9001-modulo4.html" class="done"><span class="check">✓</span> Liderazgo y Planificación</a></li>
+      <li><a href="iso9001-modulo5.html" class="done"><span class="check">✓</span> Soporte y Operación</a></li>
+      <li><a href="iso9001-modulo6.html" class="done"><span class="check">✓</span> Evaluación del Desempeño</a></li>
+      <li><a href="#" class="active"><span class="check">7</span> Mejora Continua</a></li>
+      <li><a href="#"><span class="check">8</span> El proceso de certificación</a></li>
+      <li><a href="#"><span class="check">9</span> Proyecto Final</a></li>
+    </ul></nav>
+  </aside>
+  <main class="main">
+    <div class="modulo-eyebrow">Módulo 7 de 9 — Cláusula 10</div>
+    <h1>Mejora Continua</h1>
+    <p class="intro">La Cláusula 10 cierra el ciclo PDCA. No conformidades, acciones correctivas y mejora continua: las tres palancas para que el SGC evolucione en lugar de estancarse.</p>
+    <div class="meta"><span>⏱ 2h</span><span>✅ 10 preguntas</span><span>📋 Registro de no conformidades</span></div>
+
+    <section class="seccion">
+      <h2>1. No conformidades y acciones correctivas (10.2)</h2>
+      <p>Cuando algo sale mal (una queja de cliente, un producto defectuoso, un proceso que no se sigue), la ISO 9001 exige una respuesta estructurada. No basta con arreglarlo: hay que <strong>encontrar y eliminar la causa raíz</strong> para que no vuelva a ocurrir.</p>
+      <div class="ac-proceso">
+        <div class="ac-paso"><div class="ac-num">1</div><div class="ac-body"><h4>Detectar y registrar la no conformidad</h4><p>Identificar qué pasó, dónde, cuándo y quién lo detectó. Registrarlo en el sistema (un formulario o herramienta digital).</p></div></div>
+        <div class="ac-paso"><div class="ac-num">2</div><div class="ac-body"><h4>Reacción inmediata (corrección)</h4><p>Actuar sobre el problema concreto: retirar el producto defectuoso, reparar el error, compensar al cliente. Esto no elimina la causa, solo trata el síntoma.</p></div></div>
+        <div class="ac-paso"><div class="ac-num">3</div><div class="ac-body"><h4>Analizar la causa raíz</h4><p>¿Por qué ocurrió realmente? Usar herramientas como los 5 Por Qués o el diagrama de Ishikawa para llegar a la causa real, no a los síntomas superficiales.</p></div></div>
+        <div class="ac-paso"><div class="ac-num">4</div><div class="ac-body"><h4>Planificar la acción correctiva</h4><p>Definir qué se va a cambiar para eliminar la causa: modificar un proceso, actualizar un procedimiento, formar al personal, cambiar un proveedor...</p></div></div>
+        <div class="ac-paso"><div class="ac-num">5</div><div class="ac-body"><h4>Implementar y verificar la eficacia</h4><p>Ejecutar el cambio y comprobar, pasado un tiempo razonable, que el problema no ha vuelto a ocurrir. Esto es lo que la norma llama "verificar la eficacia".</p></div></div>
+        <div class="ac-paso"><div class="ac-num">6</div><div class="ac-body"><h4>Cerrar y actualizar el SGC si procede</h4><p>Si la acción correctiva implica cambios en procesos o documentación, actualizar el sistema. Cerrar el registro de la NC con la evidencia de eficacia.</p></div></div>
+      </div>
+
+      <h3>Los 5 Por Qués: herramienta de análisis de causa raíz</h3>
+      <div class="callout ejemplo">
+        <div class="callout-icon">🔍</div>
+        <div class="callout-body">
+          <strong>Ejemplo — Los 5 Por Qués en acción</strong>
+          <p><strong>Problema:</strong> El cliente recibió un pedido incompleto.<br>
+          <strong>¿Por qué?</strong> Porque se empaquetaron solo 8 unidades en lugar de 10.<br>
+          <strong>¿Por qué?</strong> Porque el operario no vio la cantidad en el albarán.<br>
+          <strong>¿Por qué?</strong> Porque el albarán era ilegible (impresión defectuosa).<br>
+          <strong>¿Por qué?</strong> Porque la impresora está deteriorada y nadie la había revisado.<br>
+          <strong>¿Por qué?</strong> Porque no existe plan de mantenimiento de equipos de oficina.<br><br>
+          <strong>Causa raíz:</strong> Ausencia de mantenimiento preventivo de equipos de impresión.<br>
+          <strong>Acción correctiva:</strong> Crear y ejecutar plan de mantenimiento semestral.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2>2. Herramientas de mejora continua</h2>
+      <p>Más allá de las acciones correctivas reactivas, la ISO 9001 promueve la mejora proactiva. Estas son las herramientas más usadas en la práctica:</p>
+      <div class="herramientas-grid">
+        <div class="herramienta-card"><h4>🔄 Ciclo PDCA</h4><p>Planificar-Hacer-Verificar-Actuar. La base de todo: aplicable a cualquier mejora, grande o pequeña.</p></div>
+        <div class="herramienta-card"><h4>🐟 Diagrama de Ishikawa</h4><p>También llamado "espina de pez". Identifica causas de un problema en seis categorías: Máquina, Método, Material, Mano de obra, Medición, Medio ambiente.</p></div>
+        <div class="herramienta-card"><h4>📊 Diagrama de Pareto</h4><p>El 80% de los problemas viene del 20% de las causas. Prioriza dónde actuar primero para el mayor impacto.</p></div>
+        <div class="herramienta-card"><h4>🗺️ Value Stream Mapping</h4><p>Mapa del flujo de valor que identifica desperdicios y cuellos de botella en los procesos operativos.</p></div>
+        <div class="herramienta-card"><h4>5S</h4><p>Seiri, Seiton, Seiso, Seiketsu, Shitsuke. Organización del puesto de trabajo para reducir errores y pérdidas de tiempo.</p></div>
+        <div class="herramienta-card"><h4>📋 Poka-Yoke</h4><p>Diseño a prueba de errores. Hacer imposible (o muy difícil) cometer un error en un proceso.</p></div>
+      </div>
+
+      <div class="infografia-wrap">
+        <div class="infografia-titulo">📊 Diagrama de Pareto — Ejemplo de causas de reclamaciones</div>
+        <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:600px;display:block;">
+          <line x1="60" y1="20" x2="60" y2="240" stroke="#9AA3B0" stroke-width="1.5"/>
+          <line x1="60" y1="240" x2="560" y2="240" stroke="#9AA3B0" stroke-width="1.5"/>
+          <rect x="70" y="60" width="80" height="180" rx="4" fill="#1B3F6E"/>
+          <text x="110" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1B3F6E">38%</text>
+          <text x="110" y="258" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Retraso</text>
+          <text x="110" y="270" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">entrega</text>
+          <rect x="170" y="100" width="80" height="140" rx="4" fill="#2A5FA8"/>
+          <text x="210" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#2A5FA8">29%</text>
+          <text x="210" y="258" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Producto</text>
+          <text x="210" y="270" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">defectuoso</text>
+          <rect x="270" y="150" width="80" height="90" rx="4" fill="#E8A020"/>
+          <text x="310" y="145" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#92600A">19%</text>
+          <text x="310" y="258" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Facturación</text>
+          <text x="310" y="270" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">errónea</text>
+          <rect x="370" y="195" width="80" height="45" rx="4" fill="#9AA3B0"/>
+          <text x="410" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6B7280">9%</text>
+          <text x="410" y="258" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Atención</text>
+          <text x="410" y="270" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">al cliente</text>
+          <rect x="470" y="218" width="80" height="22" rx="4" fill="#E8EBF0"/>
+          <text x="510" y="214" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6B7280">5%</text>
+          <text x="510" y="258" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#6B7280">Otros</text>
+          <polyline points="110,60 210,100 310,150 410,195 510,218" stroke="#C0392B" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <text x="400" y="100" font-family="Inter,sans-serif" font-size="10" fill="#C0392B" font-weight="600">— % acumulado</text>
+          <text x="400" y="115" font-family="Inter,sans-serif" font-size="10" fill="#C0392B">67% de problemas</text>
+          <text x="400" y="128" font-family="Inter,sans-serif" font-size="10" fill="#C0392B">con solo 2 causas</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2>3. Mejora continua del SGC (10.3)</h2>
+      <p>La cláusula 10.3 cierra el sistema: exige que la organización mejore continuamente la <strong>idoneidad, adecuación y eficacia</strong> del SGC. No basta con mantenerlo: hay que hacerlo crecer.</p>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Fuente de mejora</th><th>Cómo alimenta el SGC</th></tr></thead>
+          <tbody>
+            <tr><td>Acciones correctivas eficaces</td><td>Eliminan causas raíz y actualizan procesos</td></tr>
+            <tr><td>Resultados de auditorías internas</td><td>Identifican debilidades sistemáticas</td></tr>
+            <tr><td>Satisfacción del cliente</td><td>Señala qué expectativas no se cumplen</td></tr>
+            <tr><td>Revisión por la dirección</td><td>Define prioridades estratégicas de mejora</td></tr>
+            <tr><td>Análisis de datos y KPIs</td><td>Revela tendencias y áreas de oportunidad</td></tr>
+            <tr><td>Sugerencias del personal</td><td>Conocimiento tácito convertido en mejora</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout clave">
+        <div class="callout-icon">🎯</div>
+        <div class="callout-body">
+          <strong>La diferencia entre corrección y mejora continua</strong>
+          <p>La corrección arregla el problema de hoy. La acción correctiva evita que vuelva mañana. La mejora continua rediseña el sistema para que sea cada vez mejor, incluso cuando no hay problemas. Las tres son necesarias y complementarias.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="plantilla-descargable">
+      <div class="plantilla-icon">📋</div>
+      <div class="plantilla-body">
+        <h4>Registro de no conformidades y acciones correctivas</h4>
+        <p>Plantilla completa para gestionar el ciclo NC → causa raíz → AC → verificación de eficacia.</p>
+        <button class="btn-dl" onclick="descargar()">⬇ Descargar plantilla</button>
+      </div>
+    </div>
+
+    <div class="quiz-container">
+      <div class="quiz-header"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h3>Quiz del Módulo 7</h3><span class="quiz-badge">10 preguntas</span></div>
+      <div class="quiz-body">
+        <div class="pregunta" id="p1"><div class="pregunta-num">Pregunta 1 de 10</div><h4>¿Cuál es la diferencia entre "corrección" y "acción correctiva"?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>Son sinónimos en la terminología ISO</label><label class="opcion" onclick="sel(this,'p1',true)"><div class="opcion-dot"></div>La corrección elimina el problema concreto; la acción correctiva elimina la causa raíz para que no se repita</label><label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>La corrección es interna y la acción correctiva involucra al cliente</label><label class="opcion" onclick="sel(this,'p1',false)"><div class="opcion-dot"></div>La acción correctiva es más urgente que la corrección</label></div><div class="feedback-pregunta" id="fb1"></div></div>
+        <div class="pregunta" id="p2"><div class="pregunta-num">Pregunta 2 de 10</div><h4>¿Qué herramienta utiliza preguntas repetidas de "¿Por qué?" para llegar a la causa raíz?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>Diagrama de Pareto</label><label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>Diagrama de Ishikawa</label><label class="opcion" onclick="sel(this,'p2',true)"><div class="opcion-dot"></div>Los 5 Por Qués</label><label class="opcion" onclick="sel(this,'p2',false)"><div class="opcion-dot"></div>Value Stream Mapping</label></div><div class="feedback-pregunta" id="fb2"></div></div>
+        <div class="pregunta" id="p3"><div class="pregunta-num">Pregunta 3 de 10</div><h4>¿Qué dice el principio del diagrama de Pareto aplicado a la calidad?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p3',true)"><div class="opcion-dot"></div>El 80% de los problemas proviene del 20% de las causas</label><label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>El 50% de los problemas proviene del 50% de las causas</label><label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>Todos los problemas tienen igual importancia y deben tratarse por igual</label><label class="opcion" onclick="sel(this,'p3',false)"><div class="opcion-dot"></div>El 20% de los problemas genera el 80% del coste</label></div><div class="feedback-pregunta" id="fb3"></div></div>
+        <div class="pregunta" id="p4"><div class="pregunta-num">Pregunta 4 de 10</div><h4>¿Cuántos pasos tiene el proceso completo de gestión de no conformidades y acciones correctivas según la norma?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>3 pasos</label><label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>4 pasos</label><label class="opcion" onclick="sel(this,'p4',true)"><div class="opcion-dot"></div>6 pasos (detectar, corregir, analizar causa, planificar AC, implementar/verificar, cerrar)</label><label class="opcion" onclick="sel(this,'p4',false)"><div class="opcion-dot"></div>2 pasos (detectar y corregir)</label></div><div class="feedback-pregunta" id="fb4"></div></div>
+        <div class="pregunta" id="p5"><div class="pregunta-num">Pregunta 5 de 10</div><h4>¿Qué exige la cláusula 10.3 específicamente?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Implementar un programa de sugerencias del personal</label><label class="opcion" onclick="sel(this,'p5',true)"><div class="opcion-dot"></div>Mejorar continuamente la idoneidad, adecuación y eficacia del SGC</label><label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Alcanzar cero no conformidades al año</label><label class="opcion" onclick="sel(this,'p5',false)"><div class="opcion-dot"></div>Actualizar anualmente todos los documentos del SGC</label></div><div class="feedback-pregunta" id="fb5"></div></div>
+        <div class="pregunta" id="p6"><div class="pregunta-num">Pregunta 6 de 10</div><h4>¿Qué significa "Poka-Yoke"?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Una metodología japonesa de trabajo en equipo</label><label class="opcion" onclick="sel(this,'p6',true)"><div class="opcion-dot"></div>Diseño a prueba de errores: hacer imposible o muy difícil cometer un error en un proceso</label><label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Un sistema de recompensa para empleados que detectan errores</label><label class="opcion" onclick="sel(this,'p6',false)"><div class="opcion-dot"></div>Un tipo de auditoría interna japonesa</label></div><div class="feedback-pregunta" id="fb6"></div></div>
+        <div class="pregunta" id="p7"><div class="pregunta-num">Pregunta 7 de 10</div><h4>¿Cuándo se considera "cerrada" una acción correctiva?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Cuando se implementa el cambio planificado</label><label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Cuando lo aprueba la dirección</label><label class="opcion" onclick="sel(this,'p7',true)"><div class="opcion-dot"></div>Cuando se verifica que el problema no ha vuelto a ocurrir y se documenta la eficacia</label><label class="opcion" onclick="sel(this,'p7',false)"><div class="opcion-dot"></div>Cuando el cliente confirma su satisfacción</label></div><div class="feedback-pregunta" id="fb7"></div></div>
+        <div class="pregunta" id="p8"><div class="pregunta-num">Pregunta 8 de 10</div><h4>¿Qué representan las 5S?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p8',true)"><div class="opcion-dot"></div>Cinco términos japoneses para la organización del puesto de trabajo: Seiri, Seiton, Seiso, Seiketsu, Shitsuke</label><label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Cinco fases del ciclo PDCA ampliado</label><label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Los cinco principios del lean manufacturing</label><label class="opcion" onclick="sel(this,'p8',false)"><div class="opcion-dot"></div>Cinco indicadores de calidad obligatorios según ISO</label></div><div class="feedback-pregunta" id="fb8"></div></div>
+        <div class="pregunta" id="p9"><div class="pregunta-num">Pregunta 9 de 10</div><h4>¿Cuál es la causa raíz en el ejemplo del pedido incompleto del módulo?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>El operario no leyó el albarán</label><label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>La impresora estaba averiada</label><label class="opcion" onclick="sel(this,'p9',true)"><div class="opcion-dot"></div>La ausencia de plan de mantenimiento de equipos de impresión</label><label class="opcion" onclick="sel(this,'p9',false)"><div class="opcion-dot"></div>El albarán era ilegible</label></div><div class="feedback-pregunta" id="fb9"></div></div>
+        <div class="pregunta" id="p10"><div class="pregunta-num">Pregunta 10 de 10</div><h4>¿Puede una organización certificada ISO 9001 tener no conformidades?</h4><div class="opciones"><label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>No, tener NC implica pérdida inmediata del certificado</label><label class="opcion" onclick="sel(this,'p10',true)"><div class="opcion-dot"></div>Sí, lo importante es gestionarlas correctamente con el proceso de acciones correctivas</label><label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Solo pueden tener NC menores, no mayores</label><label class="opcion" onclick="sel(this,'p10',false)"><div class="opcion-dot"></div>Depende del sector y del organismo certificador</label></div><div class="feedback-pregunta" id="fb10"></div></div>
+      </div>
+      <div class="quiz-footer">
+        <button class="btn-quiz" id="btnComprobar" onclick="comprobarQuiz()">Comprobar respuestas</button>
+        <button class="btn-quiz" id="btnReset" onclick="resetQuiz()" style="background:#fff;color:var(--azul);border:2px solid var(--gris-2);display:none;">Reintentar</button>
+        <span class="quiz-resultado" id="quizResultado"></span>
+      </div>
+    </div>
+    <div class="modulo-nav">
+      <a href="iso9001-modulo6.html" class="btn-nav anterior">← Módulo 6</a>
+      <a href="iso9001-modulo8.html" class="btn-nav siguiente">Módulo 8: Certificación →</a>
+    </div>
+  </main>
+</div>
+<script>
+  const respuestas={};
+  const correctIdx={p1:1,p2:2,p3:0,p4:2,p5:1,p6:1,p7:2,p8:0,p9:2,p10:1};
+  const feedbacks={p1:{ok:'✅ Exacto. Corrección = arreglar el síntoma ahora. Acción correctiva = eliminar la causa para que no vuelva.',ko:'❌ Incorrecto. Son conceptos distintos: la corrección es inmediata y trata el síntoma; la AC ataca la causa raíz.'},p2:{ok:'✅ Correcto. Los 5 Por Qués es la técnica de preguntar repetidamente "¿por qué?" hasta llegar a la causa raíz.',ko:'❌ Incorrecto. La técnica de los 5 Por Qués pregunta repetidamente "¿por qué ocurrió esto?" hasta llegar a la causa raíz.'},p3:{ok:'✅ Correcto. El principio de Pareto o regla 80/20: el 80% de los efectos viene del 20% de las causas.',ko:'❌ Incorrecto. El diagrama de Pareto aplica la regla 80/20: el 80% de los problemas suele tener origen en el 20% de las causas.'},p4:{ok:'✅ Correcto. El proceso completo tiene 6 pasos: detectar, corregir, analizar causa, planificar AC, implementar/verificar y cerrar.',ko:'❌ Incorrecto. El proceso completo tiene 6 pasos, desde detectar la NC hasta verificar la eficacia de la AC y cerrarla.'},p5:{ok:'✅ Correcto. La 10.3 exige mejora continua de la idoneidad, adecuación y eficacia del SGC en su conjunto.',ko:'❌ Incorrecto. La cláusula 10.3 exige mejorar continuamente la idoneidad, adecuación y eficacia del SGC, no alcanzar cero defectos.'},p6:{ok:'✅ Exacto. Poka-Yoke diseña procesos donde el error sea difícil o imposible de cometer.',ko:'❌ Incorrecto. Poka-Yoke (del japonés: "a prueba de errores") es una técnica de diseño de procesos para hacer imposible cometer ciertos errores.'},p7:{ok:'✅ Correcto. Una AC se cierra cuando se verifica que eliminó el problema: el problema no vuelve a ocurrir.',ko:'❌ Incorrecto. Cerrar una AC requiere verificar su eficacia: que el problema no ha vuelto a producirse tras implementar el cambio.'},p8:{ok:'✅ Correcto. Las 5S son cinco términos japoneses que guían la organización del puesto de trabajo para reducir desperdicios y errores.',ko:'❌ Incorrecto. Las 5S son cinco palabras japonesas: Seiri (clasificar), Seiton (ordenar), Seiso (limpiar), Seiketsu (estandarizar), Shitsuke (mantener).'},p9:{ok:'✅ Exacto. La causa raíz no es el albarán ni la impresora rota: es la ausencia del sistema de mantenimiento que habría evitado todo.',ko:'❌ Incorrecto. Siguiendo los 5 Por Qués, la causa raíz es la ausencia de un plan de mantenimiento. Los demás son síntomas intermedios.'},p10:{ok:'✅ Correcto. Tener no conformidades es normal y humano. Lo que exige la ISO es gestionarlas correctamente.',ko:'❌ Incorrecto. Cualquier organización puede y tendrá no conformidades. La norma no exige perfección, sino un proceso robusto para gestionar los fallos.'}};
+  function sel(el,pid,ok){if(document.getElementById('btnComprobar').disabled)return;el.closest('.opciones').querySelectorAll('.opcion').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');respuestas[pid]={idx:Array.from(el.closest('.opciones').children).indexOf(el),ok};}
+  function comprobarQuiz(){const ps=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10'];if(Object.keys(respuestas).length<ps.length){alert('Responde todas las preguntas.');return;}let a=0;ps.forEach(pid=>{const r=respuestas[pid];const ops=document.querySelectorAll('#'+pid+' .opcion');const fb=document.getElementById('fb'+pid.substring(1));ops.forEach(o=>o.style.pointerEvents='none');if(r.ok){ops[r.idx].classList.add('correcta');fb.className='feedback-pregunta ok';fb.textContent=feedbacks[pid].ok;a++;}else{ops[r.idx].classList.add('incorrecta');ops[correctIdx[pid]].classList.add('correcta');fb.className='feedback-pregunta ko';fb.textContent=feedbacks[pid].ko;}});document.getElementById('btnComprobar').disabled=true;document.getElementById('btnComprobar').style.display='none';document.getElementById('btnReset').style.display='inline-block';const res=document.getElementById('quizResultado');res.classList.add('visible');const pct=Math.round(a/10*100);if(pct>=80){res.style.color='var(--verde)';res.textContent='🎉 '+a+'/10 ('+pct+'%) — Excelente.';}else if(pct>=60){res.style.color='var(--acento)';res.textContent='📖 '+a+'/10 ('+pct+'%) — Repasa los errores.';}else{res.style.color='var(--rojo)';res.textContent='🔄 '+a+'/10 ('+pct+'%) — Vuelve a leer.';}}
+  function resetQuiz(){Object.keys(respuestas).forEach(k=>delete respuestas[k]);document.querySelectorAll('.opcion').forEach(o=>{o.classList.remove('selected','correcta','incorrecta');o.style.pointerEvents='';});document.querySelectorAll('.feedback-pregunta').forEach(f=>{f.className='feedback-pregunta';f.textContent='';});document.getElementById('btnComprobar').disabled=false;document.getElementById('btnComprobar').style.display='';document.getElementById('btnReset').style.display='none';document.getElementById('quizResultado').classList.remove('visible');document.getElementById('quizResultado').textContent='';}
+  function descargar(){const t='REGISTRO DE NO CONFORMIDADES Y ACCIONES CORRECTIVAS\nCurso Gestor ISO 9001 — Cláusula 10.2\n\nID: NC-___  Fecha detección: ___  Detectada por: ___\n\n1. DESCRIPCIÓN DE LA NO CONFORMIDAD\n¿Qué ocurrió? ___\n¿Dónde? ___  ¿Cuándo? ___\nReferencia (cláusula, proceso, cliente): ___\n\n2. CORRECCIÓN INMEDIATA (tratar el síntoma)\nAcción inmediata tomada: ___\nFecha: ___  Responsable: ___\n\n3. ANÁLISIS DE CAUSA RAÍZ (5 Por Qués)\n¿Por qué ocurrió? (1): ___\n¿Por qué? (2): ___\n¿Por qué? (3): ___\n¿Por qué? (4): ___\n¿Por qué? (5 - causa raíz): ___\n\n4. ACCIÓN CORRECTIVA PLANIFICADA\nDescripción de la AC: ___\nResponsable: ___  Fecha límite: ___\n\n5. VERIFICACIÓN DE EFICACIA\nFecha de verificación: ___\n¿El problema ha vuelto a ocurrir? [ ] No  [ ] Sí\nEvidencia de eficacia: ___\nValoración: [ ] Eficaz — CERRAR  [ ] No eficaz — REABRIR\n\nFirma responsable de calidad: ___  Fecha cierre: ___\n\n© Curso Gestor ISO 9001';const b=new Blob([t],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='registro-no-conformidades-ac.txt';a.click();URL.revokeObjectURL(u);}
+</script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 9 — Proyecto Final | Curso ISO 9001</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+:root{--azul:#1B3F6E;--azul-mid:#2A5FA8;--azul-claro:#EAF1FB;--acento:#E8A020;--acento-light:#FDF3E0;--verde:#2D8B5A;--verde-light:#E5F4EC;--rojo:#C0392B;--rojo-light:#FDECEA;--gris-1:#F7F8FA;--gris-2:#E8EBF0;--gris-3:#9AA3B0;--texto:#1A1F2E;--radio:10px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--gris-1);color:var(--texto);font-size:16px;line-height:1.7;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;flex-shrink:0;background:var(--azul);color:#fff;padding:32px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+.badge{background:var(--acento);color:var(--azul);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:8px;}
+.sidebar-logo h2{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.3;}
+.sidebar-progress{padding:0 24px 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;}
+.progress-label{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.progress-bar-bg{background:rgba(255,255,255,0.15);border-radius:4px;height:6px;}
+.progress-bar-fill{background:var(--acento);border-radius:4px;height:6px;width:100%;}
+.progress-pct{font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px;}
+.sidebar nav ul{list-style:none;}
+.sidebar nav ul li a{display:flex;align-items:center;gap:10px;padding:10px 24px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:13.5px;transition:all 0.2s;border-left:3px solid transparent;}
+.sidebar nav ul li a.active{color:#fff;border-left-color:var(--acento);background:rgba(255,255,255,0.08);font-weight:600;}
+.sidebar nav ul li a.done{color:rgba(255,255,255,0.5);}
+.check{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;}
+.done .check{background:var(--verde);border-color:var(--verde);}
+.main{flex:1;padding:48px 56px;max-width:860px;}
+.modulo-eyebrow{font-size:12px;font-weight:600;color:var(--azul-mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+h1{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.2;color:var(--azul);margin-bottom:16px;}
+.modulo-intro{font-size:17px;color:#4A5568;max-width:640px;margin-bottom:20px;}
+.modulo-meta{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap;}
+.meta-item{font-size:13px;color:var(--gris-3);}
+.seccion{margin-bottom:56px;}
+h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--azul);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--gris-2);}
+h3{font-size:17px;font-weight:600;color:var(--texto);margin:24px 0 10px;}
+p{color:#374151;margin-bottom:14px;}
+ul{margin:0 0 14px 20px;color:#374151;}
+ul li{margin-bottom:8px;}
+.callout{padding:20px 24px;border-radius:var(--radio);margin:24px 0;display:flex;gap:16px;}
+.callout.info{background:var(--azul-claro);border-left:4px solid var(--azul-mid);}
+.callout.clave{background:var(--verde-light);border-left:4px solid var(--verde);}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.callout-body strong{display:block;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;color:var(--azul);}
+.callout.clave .callout-body strong{color:var(--verde);}
+.callout-body p{margin:0;font-size:14.5px;color:#374151;}
+.empresa-selector{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin:24px 0;}
+.empresa-btn{background:#fff;border:2px solid var(--gris-2);border-radius:var(--radio);padding:18px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.empresa-btn:hover{border-color:var(--azul-mid);background:var(--azul-claro);}
+.empresa-btn.selected{border-color:var(--azul);background:var(--azul-claro);}
+.empresa-btn .emp-icon{font-size:28px;margin-bottom:8px;}
+.empresa-btn h4{font-size:13px;font-weight:700;color:var(--azul);}
+.empresa-btn p{font-size:12px;color:#6B7280;margin:0;}
+.proyecto-seccion{background:#fff;border:1px solid var(--gris-2);border-radius:var(--radio);padding:28px;margin:16px 0;}
+.proyecto-seccion h3{font-size:16px;font-weight:700;color:var(--azul);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gris-2);}
+.campo-proyecto{margin-bottom:20px;}
+.campo-proyecto label{display:block;font-size:13px;font-weight:600;color:var(--texto);margin-bottom:8px;}
+.campo-proyecto textarea{width:100%;border:2px solid var(--gris-2);border-radius:8px;padding:12px;font-family:'Inter',sans-serif;font-size:14px;color:var(--texto);resize:vertical;min-height:80px;transition:border-color 0.2s;background:var(--gris-1);}
+.campo-proyecto textarea:focus{outline:none;border-color:var(--azul-mid);background:#fff;}
+.campo-proyecto .hint{font-size:12px;color:var(--gris-3);margin-top:6px;}
+.btn-proyecto{background:var(--azul);color:#fff;border:none;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:background 0.2s;margin-top:8px;}
+.btn-proyecto:hover{background:var(--azul-mid);}
+.btn-proyecto.secundario{background:#fff;color:var(--azul);border:2px solid var(--gris-2);margin-left:12px;}
+.btn-proyecto.secundario:hover{border-color:var(--azul);}
+.resultado-proyecto{display:none;background:var(--verde-light);border:2px solid var(--verde);border-radius:var(--radio);padding:24px;margin-top:20px;}
+.resultado-proyecto.visible{display:block;}
+.resultado-proyecto h4{font-size:16px;font-weight:700;color:var(--verde);margin-bottom:12px;}
+.resultado-proyecto p{font-size:14px;color:#1A5C38;margin-bottom:8px;}
+.puntuacion{display:flex;align-items:center;gap:16px;margin-top:16px;}
+.puntuacion .score{font-size:32px;font-weight:700;color:var(--verde);}
+.puntuacion .score-label{font-size:14px;color:#1A5C38;}
+.certificado-wrap{background:linear-gradient(135deg,#1B3F6E 0%,#2A5FA8 50%,#1B3F6E 100%);border-radius:16px;padding:48px;text-align:center;color:#fff;margin:32px 0;position:relative;overflow:hidden;}
+.certificado-wrap::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.certificado-wrap .cert-badge{width:80px;height:80px;background:var(--acento);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px;position:relative;z-index:1;}
+.certificado-wrap h2{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:8px;color:#fff;border:none;padding:0;position:relative;z-index:1;}
+.certificado-wrap .cert-sub{font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:4px;position:relative;z-index:1;}
+.certificado-wrap .cert-nombre{font-size:22px;font-weight:700;color:var(--acento);margin:16px 0;position:relative;z-index:1;}
+.certificado-wrap .cert-fecha{font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:1;}
+.btn-cert{background:var(--acento);color:var(--azul);border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:20px;position:relative;z-index:1;}
+.modulo-nav{display:flex;justify-content:space-between;align-items:center;margin-top:56px;padding-top:32px;border-top:2px solid var(--gris-2);}
+.btn-nav{display:flex;align-items:center;gap:10px;padding:13px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.btn-nav.anterior{background:#fff;color:var(--azul);border:2px solid var(--gris-2);}
+.btn-nav.finalizar{background:var(--verde);color:#fff;}
+@media(max-width:768px){.sidebar{display:none;}.main{padding:24px 20px;}h1{font-size:28px;}.empresa-selector{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-logo"><div class="badge">ISO 9001:2026</div><h2>Gestor de Calidad<br>Certificado</h2></div>
+  <div class="sidebar-progress"><div class="progress-label">Tu progreso</div><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="progress-pct">¡Módulo final!</div></div>
+  <nav><ul>
+    <li><a href="iso9001-modulo1.html" class="done"><span class="check">✓</span> Fundamentos</a></li>
+    <li><a href="iso9001-modulo2.html" class="done"><span class="check">✓</span> La norma ISO 9001:2026</a></li>
+    <li><a href="iso9001-modulo3.html" class="done"><span class="check">✓</span> Contexto</a></li>
+    <li><a href="iso9001-modulo4.html" class="done"><span class="check">✓</span> Liderazgo y Planificación</a></li>
+    <li><a href="iso9001-modulo5.html" class="done"><span class="check">✓</span> Soporte y Operación</a></li>
+    <li><a href="iso9001-modulo6.html" class="done"><span class="check">✓</span> Evaluación del Desempeño</a></li>
+    <li><a href="iso9001-modulo7.html" class="done"><span class="check">✓</span> Mejora Continua</a></li>
+    <li><a href="iso9001-modulo8.html" class="done"><span class="check">✓</span> Proceso de Certificación</a></li>
+    <li><a href="#" class="active"><span class="check">9</span> Proyecto Final</a></li>
+  </ul></nav>
+</aside>
+<main class="main">
+  <div class="modulo-eyebrow">Módulo 9 de 9 — Proyecto Final</div>
+  <h1>Diseña tu propio SGC</h1>
+  <p class="modulo-intro">Es el momento de aplicar todo lo aprendido. En este proyecto final diseñarás un Sistema de Gestión de la Calidad básico para una empresa real o ficticia, cubriendo las cláusulas 4 a 10 de la norma.</p>
+  <div class="modulo-meta"><span class="meta-item">⏱ 3 horas</span><span class="meta-item">🎓 Certificado de finalización</span><span class="meta-item">📋 SGC completo exportable</span></div>
+
+  <div class="callout info">
+    <div class="callout-icon">📌</div>
+    <div class="callout-body"><strong>Cómo funciona este proyecto</strong><p>Elige un tipo de empresa, completa los campos de cada sección aplicando los conocimientos del curso, y al finalizar recibirás tu certificado de finalización y podrás descargar tu SGC en formato texto. No hay respuestas incorrectas: lo que importa es que las respuestas sean coherentes y específicas para la empresa elegida.</p></div>
+  </div>
+
+  <section class="seccion">
+    <h2>Paso 1 — Elige tu empresa</h2>
+    <p>Selecciona el tipo de empresa para la que vas a diseñar el SGC. Puedes usar también tu propia empresa real.</p>
+    <div class="empresa-selector">
+      <div class="empresa-btn" onclick="elegirEmpresa(this,'panaderia','Panadería artesanal','10 empleados, venta directa y hostelería')">
+        <div class="emp-icon">🍞</div><h4>Panadería artesanal</h4><p>10 empleados, venta directa y hostelería</p>
+      </div>
+      <div class="empresa-btn" onclick="elegirEmpresa(this,'consultora','Consultora IT','25 empleados, desarrollo de software a medida')">
+        <div class="emp-icon">💻</div><h4>Consultora IT</h4><p>25 empleados, desarrollo software a medida</p>
+      </div>
+      <div class="empresa-btn" onclick="elegirEmpresa(this,'taller','Taller de mecanizado','15 empleados, piezas para automoción')">
+        <div class="emp-icon">⚙️</div><h4>Taller de mecanizado</h4><p>15 empleados, piezas para automoción</p>
+      </div>
+      <div class="empresa-btn" onclick="elegirEmpresa(this,'clinica','Clínica dental','8 empleados, atención dental privada')">
+        <div class="emp-icon">🦷</div><h4>Clínica dental</h4><p>8 empleados, atención dental privada</p>
+      </div>
+      <div class="empresa-btn" onclick="elegirEmpresa(this,'logistica','Empresa de logística','40 empleados, transporte y almacén')">
+        <div class="emp-icon">🚚</div><h4>Empresa de logística</h4><p>40 empleados, transporte y almacén</p>
+      </div>
+      <div class="empresa-btn" onclick="elegirEmpresa(this,'propia','Mi empresa real','Usa tu propia empresa')">
+        <div class="emp-icon">🏢</div><h4>Mi empresa real</h4><p>Usa tu propia empresa</p>
+      </div>
+    </div>
+    <div id="empresaSeleccionada" style="display:none;background:var(--verde-light);border:2px solid var(--verde);border-radius:8px;padding:12px 16px;font-size:14px;color:#1A5C38;font-weight:600;"></div>
+  </section>
+
+  <section class="seccion" id="seccionProyecto" style="display:none;">
+    <h2>Paso 2 — Diseña el SGC</h2>
+    <p>Completa cada sección. Cuanto más específico seas, más valioso será tu proyecto y más te prepararás para la realidad de implantar un SGC.</p>
+
+    <!-- C4 -->
+    <div class="proyecto-seccion">
+      <h3>📍 Cláusula 4 — Contexto de la organización</h3>
+      <div class="campo-proyecto">
+        <label>Declaración de alcance del SGC</label>
+        <textarea id="c4_alcance" placeholder="Ejemplo: El SGC aplica al diseño, producción y venta de productos de panadería artesanal desde el obrador de Madrid..."></textarea>
+        <div class="hint">Incluye: qué productos/servicios, qué procesos y qué ubicaciones abarca el sistema.</div>
+      </div>
+      <div class="campo-proyecto">
+        <label>3 fortalezas internas relevantes para el SGC</label>
+        <textarea id="c4_fortalezas" placeholder="1. Personal con alta experiencia en el oficio&#10;2. Proceso productivo bien definido aunque no documentado&#10;3. Base de clientes fidelizada de larga trayectoria" style="min-height:90px;"></textarea>
+      </div>
+      <div class="campo-proyecto">
+        <label>3 riesgos externos identificados</label>
+        <textarea id="c4_riesgos" placeholder="1. Dependencia de proveedor único de materias primas&#10;2. Entrada de competidores con precios más bajos&#10;3. Cambios en normativa sanitaria alimentaria" style="min-height:90px;"></textarea>
+      </div>
+      <div class="campo-proyecto">
+        <label>Partes interesadas principales y su expectativa clave</label>
+        <textarea id="c4_partes" placeholder="Clientes: calidad constante y disponibilidad del producto&#10;Empleados: formación y condiciones laborales justas&#10;Proveedores: pagos a tiempo y comunicación clara"></textarea>
+      </div>
+    </div>
+
+    <!-- C5 -->
+    <div class="proyecto-seccion">
+      <h3>👔 Cláusula 5 — Liderazgo</h3>
+      <div class="campo-proyecto">
+        <label>Redacta la política de calidad de tu empresa</label>
+        <textarea id="c5_politica" placeholder="En [empresa], nuestro compromiso es..." style="min-height:120px;"></textarea>
+        <div class="hint">Recuerda: debe ser específica a tu empresa, incluir compromiso de cumplimiento y mejora continua, y terminar indicando que se comunicará a toda la organización.</div>
+      </div>
+      <div class="campo-proyecto">
+        <label>¿Quién es el Responsable de Calidad y cuáles son sus funciones principales?</label>
+        <textarea id="c5_rq" placeholder="El Responsable de Calidad es [nombre/cargo]. Sus funciones incluyen..."></textarea>
+      </div>
+    </div>
+
+    <!-- C6 -->
+    <div class="proyecto-seccion">
+      <h3>⚠️ Cláusula 6 — Planificación</h3>
+      <div class="campo-proyecto">
+        <label>Define 2 riesgos con su nivel y acción planificada</label>
+        <textarea id="c6_riesgos" placeholder="RIESGO 1: Fallo del proveedor de harina&#10;Probabilidad: 2 · Impacto: 3 · Nivel: 6-ALTO&#10;Acción: Homologar proveedor alternativo antes de Q2&#10;Responsable: Gerencia&#10;&#10;RIESGO 2: ..." style="min-height:140px;"></textarea>
+      </div>
+      <div class="campo-proyecto">
+        <label>Define 2 objetivos de calidad SMART</label>
+        <textarea id="c6_objetivos" placeholder="OBJETIVO 1: Reducir las reclamaciones de clientes&#10;Indicador: Nº reclamaciones/mes · Meta: &lt;2/mes · Responsable: Calidad · Fecha: 31/12/2026&#10;&#10;OBJETIVO 2: ..." style="min-height:120px;"></textarea>
+      </div>
+    </div>
+
+    <!-- C7 -->
+    <div class="proyecto-seccion">
+      <h3>🛠️ Cláusula 7 — Soporte</h3>
+      <div class="campo-proyecto">
+        <label>Lista los recursos críticos que necesita tu SGC</label>
+        <textarea id="c7_recursos" placeholder="Personas: 1 responsable de calidad a tiempo parcial...&#10;Infraestructura: ...&#10;Conocimiento crítico a proteger: ...&#10;Equipos de medición a calibrar: ..."></textarea>
+      </div>
+      <div class="campo-proyecto">
+        <label>¿Qué información documentada es esencial en tu empresa? (mínimo 5)</label>
+        <textarea id="c7_docs" placeholder="1. Política de calidad&#10;2. Mapa de procesos&#10;3. Procedimiento de atención a reclamaciones&#10;4. Fichas de competencia del personal&#10;5. ..." style="min-height:120px;"></textarea>
+      </div>
+    </div>
+
+    <!-- C8 -->
+    <div class="proyecto-seccion">
+      <h3>⚙️ Cláusula 8 — Operación</h3>
+      <div class="campo-proyecto">
+        <label>Describe el proceso principal de tu empresa (entradas → actividades → salidas)</label>
+        <textarea id="c8_proceso" placeholder="ENTRADA: Pedido del cliente / materia prima&#10;ACTIVIDADES: Recepción → Producción → Control calidad → Entrega&#10;SALIDA: Producto/servicio entregado + factura&#10;&#10;Controles en cada etapa: ..."></textarea>
+      </div>
+      <div class="campo-proyecto">
+        <label>¿Cómo controlas las salidas no conformes en tu empresa?</label>
+        <textarea id="c8_nc" placeholder="Cuando se detecta un producto/servicio no conforme, la acción inmediata es...&#10;Se documenta en...&#10;Se notifica al cliente cuando..."></textarea>
+      </div>
+    </div>
+
+    <!-- C9 -->
+    <div class="proyecto-seccion">
+      <h3>📊 Cláusula 9 — Evaluación del desempeño</h3>
+      <div class="campo-proyecto">
+        <label>Define 3 KPIs que medirás mensualmente</label>
+        <textarea id="c9_kpis" placeholder="KPI 1: Tasa de satisfacción del cliente · Método: encuesta post-compra · Meta: &gt;8/10&#10;KPI 2: Nº no conformidades · Método: registro interno · Meta: &lt;3/mes&#10;KPI 3: ..." style="min-height:100px;"></textarea>
+      </div>
+      <div class="campo-proyecto">
+        <label>Plan de auditorías internas: ¿qué, cuándo y quién?</label>
+        <textarea id="c9_auditoria" placeholder="Frecuencia: semestral&#10;Auditor: [cargo, debe ser independiente del área auditada]&#10;Alcance: todas las cláusulas 4-10&#10;Primer ciclo: Q1 2027"></textarea>
+      </div>
+    </div>
+
+    <!-- C10 -->
+    <div class="proyecto-seccion">
+      <h3>🔄 Cláusula 10 — Mejora continua</h3>
+      <div class="campo-proyecto">
+        <label>Documenta una no conformidad real o hipotética con su acción correctiva completa</label>
+        <textarea id="c10_nc" placeholder="NC: Un cliente recibió su pedido con un error en el producto&#10;Acción inmediata: Reposición urgente + disculpa&#10;Causa raíz (5 porqués): ...&#10;Acción correctiva: ...&#10;Responsable: · Fecha: · Verificación eficacia: ..." style="min-height:160px;"></textarea>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;text-align:center;">
+      <button class="btn-proyecto" onclick="evaluarProyecto()">🎓 Evaluar mi proyecto y obtener certificado</button>
+      <button class="btn-proyecto secundario" onclick="exportarProyecto()">📄 Exportar SGC</button>
+    </div>
+
+    <div class="resultado-proyecto" id="resultadoProyecto">
+      <h4>✅ ¡Proyecto completado!</h4>
+      <div id="feedbackProyecto"></div>
+      <div class="puntuacion">
+        <div class="score" id="scoreProyecto">0/10</div>
+        <div class="score-label" id="labelProyecto"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="certificado-wrap" id="certificadoWrap" style="display:none;">
+    <div class="cert-badge">🏆</div>
+    <h2>Certificado de Finalización</h2>
+    <p class="cert-sub">Este certificado acredita que</p>
+    <div class="cert-nombre" id="certNombre">Alumno del Curso</div>
+    <p class="cert-sub">ha completado satisfactoriamente el curso</p>
+    <p style="font-size:18px;font-weight:700;color:#fff;margin:8px 0;position:relative;z-index:1;">Gestor ISO 9001:2026 — De Cero a Implementador</p>
+    <p class="cert-sub">9 módulos · 20 horas · 90 preguntas de evaluación · Proyecto final</p>
+    <p class="cert-fecha" id="certFecha"></p>
+    <button class="btn-cert" onclick="descargarCertificado()">⬇ Descargar certificado</button>
+  </div>
+
+  <div class="callout clave" style="margin-top:40px;">
+    <div class="callout-icon">🚀</div>
+    <div class="callout-body"><strong>¿Y ahora qué?</strong><p>Has completado el curso. Los próximos pasos recomendados son: (1) aplicar el SGC en tu empresa o en una empresa cliente, (2) obtener tu certificado de auditor interno ISO 9001 con un organismo acreditado para reforzar tu credibilidad profesional, (3) si te interesa ampliar, estudia ISO 14001 (medioambiente) o ISO 45001 (seguridad y salud) — con la base que tienes, el esfuerzo adicional es mínimo. ¡Mucho éxito!</p></div>
+  </div>
+
+  <div class="modulo-nav">
+    <a href="iso9001-modulo8.html" class="btn-nav anterior">← Módulo 8</a>
+    <a href="iso9001-modulo1.html" class="btn-nav finalizar">🔄 Repasar desde el inicio</a>
+  </div>
+</main>
+</div>
+<script>
+let empresaActual = '';
+let nombreAlumno = '';
+
+function elegirEmpresa(el, tipo, nombre, desc) {
+  document.querySelectorAll('.empresa-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  empresaActual = tipo;
+  const div = document.getElementById('empresaSeleccionada');
+  div.style.display = 'block';
+  div.textContent = '✅ Empresa seleccionada: ' + nombre + ' — ' + desc;
+  document.getElementById('seccionProyecto').style.display = 'block';
+  document.getElementById('seccionProyecto').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function contarPalabras(texto) {
+  return texto.trim().split(/\s+/).filter(w => w.length > 0).length;
+}
+
+function evaluarProyecto() {
+  const campos = [
+    {id:'c4_alcance', min:20, nombre:'Alcance del SGC'},
+    {id:'c4_fortalezas', min:15, nombre:'Fortalezas internas'},
+    {id:'c4_riesgos', min:15, nombre:'Riesgos externos'},
+    {id:'c4_partes', min:15, nombre:'Partes interesadas'},
+    {id:'c5_politica', min:30, nombre:'Política de calidad'},
+    {id:'c5_rq', min:10, nombre:'Responsable de Calidad'},
+    {id:'c6_riesgos', min:30, nombre:'Matriz de riesgos'},
+    {id:'c6_objetivos', min:20, nombre:'Objetivos SMART'},
+    {id:'c7_recursos', min:20, nombre:'Recursos del SGC'},
+    {id:'c7_docs', min:15, nombre:'Información documentada'},
+    {id:'c8_proceso', min:25, nombre:'Proceso principal'},
+    {id:'c8_nc', min:15, nombre:'Control de NC'},
+    {id:'c9_kpis', min:20, nombre:'KPIs'},
+    {id:'c9_auditoria', min:15, nombre:'Plan de auditorías'},
+    {id:'c10_nc', min:30, nombre:'Acción correctiva'}
+  ];
+  let completados = 0;
+  let feedback = '';
+  campos.forEach(c => {
+    const val = document.getElementById(c.id).value;
+    const palabras = contarPalabras(val);
+    if(palabras >= c.min) {
+      completados++;
+    } else {
+      feedback += `<p>⚠️ <strong>${c.nombre}:</strong> Amplía un poco más esta sección (${palabras} palabras, recomendado mínimo ${c.min}).</p>`;
+    }
+  });
+  const score = Math.round(completados / campos.length * 10);
+  document.getElementById('resultadoProyecto').classList.add('visible');
+  document.getElementById('feedbackProyecto').innerHTML = feedback || '<p>✅ Todas las secciones están bien desarrolladas.</p>';
+  document.getElementById('scoreProyecto').textContent = score + '/10';
+  const label = document.getElementById('labelProyecto');
+  if(score >= 8) {
+    label.textContent = '🎉 Proyecto completado con excelencia — Certificado disponible';
+    label.style.color = 'var(--verde)';
+    mostrarCertificado();
+  } else if(score >= 6) {
+    label.textContent = '📖 Buen trabajo — Completa las secciones marcadas para obtener el certificado';
+    label.style.color = 'var(--acento)';
+  } else {
+    label.textContent = '✏️ Desarrolla más las secciones indicadas para completar el proyecto';
+    label.style.color = 'var(--rojo)';
+  }
+  document.getElementById('resultadoProyecto').scrollIntoView({behavior:'smooth'});
+}
+
+function mostrarCertificado() {
+  nombreAlumno = prompt('¿Cómo quieres que aparezca tu nombre en el certificado?') || 'Profesional en Calidad';
+  const cert = document.getElementById('certificadoWrap');
+  cert.style.display = 'block';
+  document.getElementById('certNombre').textContent = nombreAlumno;
+  const fecha = new Date().toLocaleDateString('es-ES', {year:'numeric', month:'long', day:'numeric'});
+  document.getElementById('certFecha').textContent = 'Expedido el ' + fecha;
+  cert.scrollIntoView({behavior:'smooth'});
+}
+
+function descargarCertificado() {
+  const fecha = new Date().toLocaleDateString('es-ES', {year:'numeric', month:'long', day:'numeric'});
+  const t = `CERTIFICADO DE FINALIZACIÓN
+===========================
+
+Este certificado acredita que
+
+${nombreAlumno}
+
+ha completado satisfactoriamente el curso
+
+"GESTOR ISO 9001:2026 — DE CERO A IMPLEMENTADOR"
+
+Contenido cubierto:
+• Módulo 1: Fundamentos de la Calidad y los 7 principios ISO
+• Módulo 2: Estructura de la norma ISO 9001:2026 y novedades
+• Módulo 3: Contexto de la organización (Cláusula 4)
+• Módulo 4: Liderazgo y Planificación (Cláusulas 5 y 6)
+• Módulo 5: Soporte y Operación (Cláusulas 7 y 8)
+• Módulo 6: Evaluación del Desempeño (Cláusula 9)
+• Módulo 7: Mejora Continua (Cláusula 10)
+• Módulo 8: El Proceso de Certificación
+• Módulo 9: Proyecto Final — Diseño completo de un SGC
+
+Duración: 20 horas de formación
+Evaluación: 90 preguntas tipo test + proyecto final
+Resultado: APTO
+
+Expedido el ${fecha}
+
+Curso: Gestor ISO 9001 — Formación online
+
+---
+Este certificado acredita la finalización del programa formativo.
+Para la certificación oficial de Auditor Interno ISO 9001,
+diríjase a un organismo acreditado por ENAC.`;
+  const b = new Blob([t], {type:'text/plain;charset=utf-8'});
+  const u = URL.createObjectURL(b);
+  const a = document.createElement('a');
+  a.href = u;
+  a.download = 'certificado-iso9001-' + nombreAlumno.replace(/\s+/g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(u);
+}
+
+function exportarProyecto() {
+  const campos = {
+    'ALCANCE DEL SGC': document.getElementById('c4_alcance').value,
+    'FORTALEZAS INTERNAS': document.getElementById('c4_fortalezas').value,
+    'RIESGOS EXTERNOS': document.getElementById('c4_riesgos').value,
+    'PARTES INTERESADAS': document.getElementById('c4_partes').value,
+    'POLÍTICA DE CALIDAD': document.getElementById('c5_politica').value,
+    'RESPONSABLE DE CALIDAD': document.getElementById('c5_rq').value,
+    'MATRIZ DE RIESGOS': document.getElementById('c6_riesgos').value,
+    'OBJETIVOS DE CALIDAD': document.getElementById('c6_objetivos').value,
+    'RECURSOS DEL SGC': document.getElementById('c7_recursos').value,
+    'INFORMACIÓN DOCUMENTADA': document.getElementById('c7_docs').value,
+    'PROCESO PRINCIPAL': document.getElementById('c8_proceso').value,
+    'CONTROL DE NC': document.getElementById('c8_nc').value,
+    'KPIS Y MEDICIÓN': document.getElementById('c9_kpis').value,
+    'PLAN DE AUDITORÍAS': document.getElementById('c9_auditoria').value,
+    'ACCIÓN CORRECTIVA EJEMPLO': document.getElementById('c10_nc').value
+  };
+  let t = 'SISTEMA DE GESTIÓN DE LA CALIDAD ISO 9001:2026\n';
+  t += 'Empresa: ' + empresaActual.toUpperCase() + '\n';
+  t += 'Elaborado el: ' + new Date().toLocaleDateString('es-ES') + '\n';
+  t += '='.repeat(50) + '\n\n';
+  Object.entries(campos).forEach(([k, v]) => {
+    t += k + '\n' + '-'.repeat(k.length) + '\n' + (v || '(sin completar)') + '\n\n';
+  });
+  t += '© Curso Gestor de Calidad ISO 9001';
+  const b = new Blob([t], {type:'text/plain;charset=utf-8'});
+  const u = URL.createObjectURL(b);
+  const a = document.createElement('a');
+  a.href = u;
+  a.download = 'sgc-proyecto-final-iso9001.txt';
+  a.click();
+  URL.revokeObjectURL(u);
+}
+</script>
+</body>
+</html>
