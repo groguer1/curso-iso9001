@@ -376,6 +376,16 @@
       </div>
     </section>
 
+    <!-- DESCARGABLE -->
+    <div style="background:linear-gradient(135deg,#1B3F6E,#2A5FA8);border-radius:10px;padding:28px 32px;color:#fff;display:flex;align-items:center;gap:24px;margin:32px 0;">
+      <div style="font-size:40px;flex-shrink:0;">🗺️</div>
+      <div>
+        <h4 style="font-size:17px;font-weight:600;margin-bottom:6px;">Mapa mental ISO 9001:2026 — Las 10 cláusulas y sus requisitos clave</h4>
+        <p style="font-size:13.5px;color:rgba(255,255,255,0.75);margin:0 0 16px;">Tabla de referencia rápida con todas las cláusulas, su fase PDCA, los requisitos principales y las novedades 2026 marcadas.</p>
+        <button onclick="descargarMapa()" style="background:#E8A020;color:#1B3F6E;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">⬇ Descargar mapa mental</button>
+      </div>
+    </div>
+
     <!-- QUIZ -->
     <div class="quiz-container">
       <div class="quiz-header">
@@ -535,6 +545,7 @@
     p9:{ok:'✅ Correcto. La Cláusula 5 (Liderazgo) es donde la norma exige el compromiso visible de la alta dirección y la definición de la política de calidad.',ko:'❌ No es correcto. El liderazgo y la política de calidad están en la Cláusula 5.'},
     p10:{ok:'✅ Exacto. La versión 2026 refuerza la gestión activa del conocimiento, incluyendo el riesgo de perderlo por rotación de personal o cambios tecnológicos.',ko:'❌ No es correcto. La novedad es la gestión activa del riesgo de pérdida del conocimiento crítico organizacional.'}
   };
+  function descargarMapa(){const t=`MAPA MENTAL ISO 9001:2026 — LAS 10 CLÁUSULAS\n${'='.repeat(50)}\n\nFASE PLANIFICAR (P)\n\nCLÁUSULA 4 — CONTEXTO\n• 4.1 Contexto interno y externo (+ factores medioambientales/sociales en 2026)\n• 4.2 Partes interesadas y sus necesidades\n• 4.3 Alcance del SGC\n• 4.4 Procesos del SGC (mapa de procesos)\n\nCLÁUSULA 5 — LIDERAZGO\n• 5.1 Compromiso de la alta dirección\n• 5.2 Política de calidad\n• 5.3 Roles y responsabilidades\n\nCLÁUSULA 6 — PLANIFICACIÓN\n• 6.1 Riesgos y oportunidades\n• 6.2 Objetivos de calidad SMART\n• 6.3 Planificación de cambios\n\nFASE HACER (D)\n\nCLÁUSULA 7 — SOPORTE\n• 7.1 Recursos (personas, infraestructura, ambiente, medición, conocimiento*)\n• 7.2 Competencia\n• 7.3 Toma de conciencia\n• 7.4 Comunicación\n• 7.5 Información documentada (* entornos cloud en 2026)\n\nCLÁUSULA 8 — OPERACIÓN\n• 8.1 Planificación operacional\n• 8.2 Requisitos del cliente\n• 8.3 Diseño y desarrollo\n• 8.4 Control de proveedores (* cadena de valor en 2026)\n• 8.5 Producción y servicio\n• 8.6 Liberación de productos\n• 8.7 Salidas no conformes\n\nFASE VERIFICAR (C)\n\nCLÁUSULA 9 — EVALUACIÓN\n• 9.1 Seguimiento, medición y análisis\n• 9.1.2 Satisfacción del cliente\n• 9.2 Auditoría interna\n• 9.3 Revisión por la dirección\n\nFASE ACTUAR (A)\n\nCLÁUSULA 10 — MEJORA\n• 10.1 Oportunidades de mejora\n• 10.2 No conformidades y acciones correctivas\n• 10.3 Mejora continua\n\n* Novedades ISO 9001:2026\n\nTRANSICIÓN 2015 → 2026\n• Plazo límite: 2028\n• Certificados 2015 siguen vigentes hasta entonces\n• Principales cambios: sostenibilidad en C.4, conocimiento en C.7.1.6, cloud en C.7.5, cadena de valor en C.8.4\n\n© Curso Gestor de Calidad ISO 9001`;const b=new Blob([t],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='mapa-mental-iso9001-2026.txt';a.click();URL.revokeObjectURL(u);}
   function sel(el,pid,ok){
     if(document.getElementById('btnComprobar').disabled)return;
     el.closest('.opciones').querySelectorAll('.opcion').forEach(o=>o.classList.remove('selected'));
