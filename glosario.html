@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario ISO | Cursos ISO</title>
+<link rel="stylesheet" href="cursos-iso.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo">
+      <div class="navbar__logo-mark">CI</div>
+      <div>
+        <span class="navbar__logo-text">Cursos ISO</span>
+        <span class="navbar__logo-sub">Academia de Consultoría</span>
+      </div>
+    </a>
+    <ul class="navbar__nav">
+      <li><a href="index.html">Cursos</a></li>
+      <li><a href="plantillas.html">Plantillas</a></li>
+      <li><a href="glosario.html" class="active">Glosario</a></li>
+      <li><a href="referencias.html">Referencias</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="glosario-page">
+  <p class="section__eyebrow">Recursos de la academia</p>
+  <h1 style="margin-bottom:0.75rem;">Glosario de términos ISO</h1>
+  <p style="color:var(--text-muted);max-width:640px;line-height:1.8;margin-bottom:2rem;">Definiciones de los términos clave de ISO 9001, ISO 14001 e ISO 45001 basadas en los vocabularios oficiales (ISO 9000:2015, ISO 14050:2020, ISO 45001:2018 Anexo).</p>
+
+  <input type="text" id="glosario-search" placeholder="Buscar término..." style="width:100%;max-width:480px;padding:12px 16px;border:1.5px solid rgba(45,106,79,0.2);border-radius:var(--radius-md);font-size:14px;font-family:var(--font-sans);color:var(--text-body);background:var(--white);margin-bottom:1.5rem;display:block;">
+
+  <div class="glosario-filtros">
+    <button class="filtro-btn active" data-filtro="todo">Todos</button>
+    <button class="filtro-btn" data-filtro="comun">HLS Común</button>
+    <button class="filtro-btn" data-filtro="9001">ISO 9001</button>
+    <button class="filtro-btn" data-filtro="14001">ISO 14001</button>
+    <button class="filtro-btn" data-filtro="45001">ISO 45001</button>
+  </div>
+
+  <!-- TÉRMINOS COMUNES HLS -->
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Alta dirección</p>
+    <span class="termino-card__clausula">HLS · C.5.1</span>
+    <p class="termino-card__def">Persona o grupo de personas que dirige y controla una organización al más alto nivel. En el contexto de los sistemas de gestión, la alta dirección tiene la responsabilidad última de la eficacia del sistema y de proporcionar los recursos necesarios.</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">No conformidad (NC)</p>
+    <span class="termino-card__clausula">HLS · C.10.2</span>
+    <p class="termino-card__def">Incumplimiento de un requisito. Puede ser un requisito de la norma, un requisito legal, un requisito del cliente o un requisito interno de la organización. Las NC se clasifican habitualmente en mayores (fallos sistémicos o incumplimientos legales) y menores (desviaciones aisladas).</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Acción correctiva (AC)</p>
+    <span class="termino-card__clausula">HLS · C.10.2</span>
+    <p class="termino-card__def">Acción tomada para eliminar la causa de una no conformidad y prevenir su recurrencia. Se diferencia de la acción inmediata (que trata el síntoma) y de la acción preventiva (que actúa antes de que se produzca la NC). La AC opera sobre la causa raíz.</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Mejora continua</p>
+    <span class="termino-card__clausula">HLS · C.10.3</span>
+    <p class="termino-card__def">Actividad recurrente para mejorar el desempeño. En ISO, no significa que todos los indicadores mejoren cada año, sino que existe una tendencia general de mejora sostenida en el tiempo, con objetivos que avanzan y acciones verificables que los respaldan.</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Información documentada</p>
+    <span class="termino-card__clausula">HLS · C.7.5</span>
+    <p class="termino-card__def">Información que debe ser controlada y mantenida por una organización y el medio en el que está contenida. Sustituye en ISO 2015 a los términos anteriores de "documentos" y "registros". Incluye desde procedimientos escritos hasta registros de formación o resultados de mediciones.</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Partes interesadas</p>
+    <span class="termino-card__clausula">HLS · C.4.2</span>
+    <p class="termino-card__def">Persona u organización que puede afectar, verse afectada o percibirse como afectada por una decisión o actividad. Ejemplos: clientes, trabajadores, proveedores, autoridades reguladoras, comunidad local, accionistas, sindicatos.</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Ciclo PDCA</p>
+    <span class="termino-card__clausula">HLS · Introducción</span>
+    <p class="termino-card__def">Ciclo Planificar-Hacer-Verificar-Actuar (Plan-Do-Check-Act) desarrollado por Deming. Es la estructura subyacente de todos los sistemas de gestión ISO: Planificar (cláusulas 4-6), Hacer (cláusula 7-8), Verificar (cláusula 9), Actuar (cláusula 10).</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Alcance del sistema de gestión</p>
+    <span class="termino-card__clausula">HLS · C.4.3</span>
+    <p class="termino-card__def">Límites y aplicabilidad del sistema de gestión. Define qué productos, servicios, procesos, ubicaciones y partes de la organización están incluidos en el sistema certificable. La exclusión de algún proceso debe estar justificada.</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Riesgo</p>
+    <span class="termino-card__clausula">HLS · C.6.1</span>
+    <p class="termino-card__def">Efecto de la incertidumbre sobre los objetivos. En ISO, el riesgo puede ser negativo (amenaza) o positivo (oportunidad). A diferencia de la terminología de PRL (donde riesgo siempre es negativo), en los sistemas de gestión el concepto incluye ambas dimensiones.</p>
+  </div>
+  <div class="termino-card" data-norma="comun">
+    <p class="termino-card__nombre">Competencia</p>
+    <span class="termino-card__clausula">HLS · C.7.2</span>
+    <p class="termino-card__def">Capacidad para aplicar conocimientos y habilidades para alcanzar los resultados previstos. No es equivalente a titulación — la competencia se demuestra con evidencias de formación específica y capacidad de aplicación en el puesto. La organización debe evaluar la eficacia de la formación.</p>
+  </div>
+
+  <!-- TÉRMINOS ISO 9001 -->
+  <div class="termino-card" data-norma="9001">
+    <p class="termino-card__nombre">Satisfacción del cliente</p>
+    <span class="termino-card__clausula">ISO 9001 · C.9.1.2</span>
+    <p class="termino-card__def">Percepción del cliente sobre el grado en que se han cumplido sus expectativas. La organización debe hacer seguimiento de la percepción del cliente (no solo del cumplimiento de los requisitos del contrato). Métodos: encuestas, quejas, felicitaciones, análisis de cancelaciones.</p>
+  </div>
+  <div class="termino-card" data-norma="9001">
+    <p class="termino-card__nombre">Salida no conforme</p>
+    <span class="termino-card__clausula">ISO 9001 · C.8.7</span>
+    <p class="termino-card__def">Producto o resultado de un proceso que no cumple los requisitos especificados. La organización debe identificarla, controlarla, tratarla (reparar, devolver, concesión) y documentar las acciones tomadas. Diferente a la no conformidad del sistema.</p>
+  </div>
+  <div class="termino-card" data-norma="9001">
+    <p class="termino-card__nombre">Proveedor externo</p>
+    <span class="termino-card__clausula">ISO 9001 · C.8.4</span>
+    <p class="termino-card__def">Organización o persona que proporciona un producto o servicio desde fuera de la organización. ISO 9001:2015 amplió la cobertura a todos los proveedores externos (no solo los de materias primas): servicios subcontratados, procesos externalizados, servicios en nube.</p>
+  </div>
+  <div class="termino-card" data-norma="9001">
+    <p class="termino-card__nombre">Trazabilidad</p>
+    <span class="termino-card__clausula">ISO 9001 · C.8.5.2</span>
+    <p class="termino-card__def">Capacidad para rastrear el historial, aplicación, localización y origen de lo que se está considerando. En producción: identificar un producto en cada etapa de su ciclo y vincularlo a los materiales y procesos que lo generaron. Esencial en sectores alimentario, sanitario y aeronáutico.</p>
+  </div>
+  <div class="termino-card" data-norma="9001">
+    <p class="termino-card__nombre">Enfoque basado en procesos</p>
+    <span class="termino-card__clausula">ISO 9001 · C.4.4</span>
+    <p class="termino-card__def">Comprensión y gestión de las actividades interrelacionadas como procesos que funcionan como un sistema coherente, en lugar de gestionar funciones o departamentos de forma aislada. Principio de la gestión de la calidad desde ISO 9001:2000.</p>
+  </div>
+
+  <!-- TÉRMINOS ISO 14001 -->
+  <div class="termino-card" data-norma="14001">
+    <p class="termino-card__nombre">Aspecto ambiental</p>
+    <span class="termino-card__clausula">ISO 14001 · C.6.1.2</span>
+    <p class="termino-card__def">Elemento de las actividades, productos o servicios de una organización que puede interactuar con el medio ambiente. Ejemplos: generación de residuos peligrosos, emisión de COV, consumo de agua. No confundir con impacto ambiental (el efecto en el medio ambiente).</p>
+  </div>
+  <div class="termino-card" data-norma="14001">
+    <p class="termino-card__nombre">Impacto ambiental</p>
+    <span class="termino-card__clausula">ISO 14001 · C.6.1.2</span>
+    <p class="termino-card__def">Cambio en el medio ambiente, ya sea adverso o beneficioso, que resulta total o parcialmente de los aspectos ambientales de una organización. Ejemplos: contaminación del suelo, agotamiento de recursos hídricos, emisiones de GEI. Es la consecuencia del aspecto.</p>
+  </div>
+  <div class="termino-card" data-norma="14001">
+    <p class="termino-card__nombre">Aspecto ambiental significativo</p>
+    <span class="termino-card__clausula">ISO 14001 · C.6.1.2</span>
+    <p class="termino-card__def">Aspecto ambiental que tiene o puede tener un impacto ambiental significativo. La organización determina cuáles son significativos mediante criterios documentados (severidad, frecuencia, requisito legal). Los aspectos significativos generan obligaciones en cascada sobre control operacional, comunicación y objetivos.</p>
+  </div>
+  <div class="termino-card" data-norma="14001">
+    <p class="termino-card__nombre">Perspectiva de ciclo de vida</p>
+    <span class="termino-card__clausula">ISO 14001 · C.6.1.2</span>
+    <p class="termino-card__def">Consideración de las etapas consecutivas e interrelacionadas de un sistema de producto o servicio, desde la extracción de la materia prima hasta la disposición final. ISO 14001:2015 exige incluir esta perspectiva en la identificación de aspectos. No requiere un Análisis de Ciclo de Vida (ACV) formal.</p>
+  </div>
+  <div class="termino-card" data-norma="14001">
+    <p class="termino-card__nombre">Evaluación del cumplimiento</p>
+    <span class="termino-card__clausula">ISO 14001 · C.9.1.2</span>
+    <p class="termino-card__def">Proceso mediante el cual la organización verifica periódicamente que cumple todos los requisitos legales y otros requisitos identificados. Es exclusivo de ISO 14001 (y ISO 45001) y no existe en ISO 9001. Requiere documentación de los resultados de la evaluación.</p>
+  </div>
+  <div class="termino-card" data-norma="14001">
+    <p class="termino-card__nombre">Condiciones operativas anormales</p>
+    <span class="termino-card__clausula">ISO 14001 · C.6.1.2</span>
+    <p class="termino-card__def">Situaciones no rutinarias pero planificadas que generan aspectos ambientales distintos a los de operación normal: arranques de instalaciones, paradas, mantenimiento, limpieza de equipos. Son el origen de la mayoría de los accidentes ambientales y frecuentemente se omiten en las evaluaciones.</p>
+  </div>
+
+  <!-- TÉRMINOS ISO 45001 -->
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">Peligro</p>
+    <span class="termino-card__clausula">ISO 45001 · C.3.19</span>
+    <p class="termino-card__def">Fuente con potencial de causar lesiones o deterioro de la salud. Un peligro existe independientemente de que haya alguien expuesto. Ejemplos: una máquina sin resguardo, un producto químico tóxico, una superficie mojada. El riesgo es la combinación del peligro con la probabilidad y la consecuencia de la exposición.</p>
+  </div>
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">Riesgo para la SST</p>
+    <span class="termino-card__clausula">ISO 45001 · C.3.21</span>
+    <p class="termino-card__def">Combinación de la probabilidad de que ocurra un evento o exposición peligrosa relacionada con el trabajo y la severidad de la lesión o deterioro de la salud que puede causar el evento. Distinto del concepto de riesgo de ISO 9001 y 14001, que incluye dimensión positiva (oportunidad).</p>
+  </div>
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">Jerarquía de controles</p>
+    <span class="termino-card__clausula">ISO 45001 · C.8.1.2</span>
+    <p class="termino-card__def">Marco de priorización de controles SST de mayor a menor eficacia: 1) Eliminación del peligro; 2) Sustitución por algo menos peligroso; 3) Controles de ingeniería (resguardos, extracción); 4) Controles administrativos (procedimientos, señalización); 5) EPI (equipo de protección individual). Los controles de nivel superior son más fiables porque no dependen del comportamiento humano.</p>
+  </div>
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">Participación de los trabajadores</p>
+    <span class="termino-card__clausula">ISO 45001 · C.5.4</span>
+    <p class="termino-card__def">Cláusula exclusiva de ISO 45001 sin equivalente en ISO 9001 ni ISO 14001. Los trabajadores deben participar en la identificación de peligros, evaluación de riesgos, desarrollo de controles y en las investigaciones de incidentes. La consulta pasiva (comunicar las decisiones) no es suficiente — se exige participación activa.</p>
+  </div>
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">Incidente</p>
+    <span class="termino-card__clausula">ISO 45001 · C.3.35</span>
+    <p class="plantilla-desc">Suceso que surge del trabajo o en el transcurso del mismo, que podría o da lugar a lesiones o deterioro de la salud. Incluye los accidentes (con lesión), los cuasi accidentes (sin lesión pero que podrían haberla causado) y las situaciones peligrosas detectadas. Todos deben investigarse.</p>
+  </div>
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">Trabajador especialmente sensible</p>
+    <span class="termino-card__clausula">ISO 45001 · C.6.1.1 + LPRL Art.25</span>
+    <p class="termino-card__def">Trabajador cuya situación personal (embarazo, lactancia, discapacidad, estado de salud, edad, falta de experiencia) les hace más vulnerables a determinados peligros. ISO 45001 exige identificar y considerar a estas personas en la evaluación de riesgos. La LPRL establece obligaciones específicas de protección.</p>
+  </div>
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">Riesgo psicosocial</p>
+    <span class="termino-card__clausula">ISO 45001 · C.6.1.1</span>
+    <p class="termino-card__def">Peligro derivado de la organización del trabajo, del contenido de las tareas y de las relaciones sociales que puede afectar a la salud física, mental o social de los trabajadores. Incluye estrés laboral, burnout, acoso, violencia en el trabajo, carga de trabajo excesiva y falta de autonomía. ISO 45001 los incluye explícitamente en el ámbito de la identificación de peligros.</p>
+  </div>
+  <div class="termino-card" data-norma="45001">
+    <p class="termino-card__nombre">ALARP</p>
+    <span class="termino-card__clausula">ISO 45001 · Principio</span>
+    <p class="termino-card__def">As Low As Reasonably Practicable — tan bajo como sea razonablemente practicable. Principio que reconoce que el riesgo cero no es posible en la práctica. El objetivo del SGS es reducir el riesgo residual hasta el nivel más bajo que sea alcanzable con los medios técnicos y económicos disponibles.</p>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer__bottom">
+    <span>© 2025 Cursos ISO · David Mateos</span>
+    <div class="footer__norm-logos">
+      <span class="norm-logo">ISO 9001:2015</span>
+      <span class="norm-logo">ISO 14001:2015</span>
+      <span class="norm-logo">ISO 45001:2018</span>
+    </div>
+  </div>
+</footer>
+
+<script src="cursos-iso.js"></script>
+</body>
+</html>
